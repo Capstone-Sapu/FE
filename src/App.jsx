@@ -7,6 +7,9 @@ import About from "./pages/landingPage/user/About"
 import Contact from "./pages/landingPage/user/Contact"
 import Beranda from "./pages/landingPage/user/Beranda"
 import FormJual from "./pages/landingPage/user/components/FormJual"
+import User from "./pages/landingPage/admin/User"
+import Sampah from "./pages/landingPage/admin/Sampah"
+import Transaksi from "./pages/landingPage/admin/Transaksi"
 
 
 
@@ -23,6 +26,9 @@ function App() {
         <Route path="/kontak"element={<Contact/>}/>
         <Route path="beranda/form-jual/:idBarang" element={<FormJual />} />
         <Route path="/tentang"element={<About/>}/>
+        <Route path="/Customer"element={<User/>}/>
+        <Route path="/sampah"element={<Sampah/>}/>
+        <Route path="/transaksi"element={<Transaksi/>}/>
         <Route path="*"element={<NotFound/>}/>
         
       </Routes>

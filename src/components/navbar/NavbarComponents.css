@@ -39,3 +39,40 @@ nav.navbar{
     width: 75px;
     height: 75px;
  }
+
+ div.avatar-profile {
+   width: 50px;
+   height: 50px;
+   border-radius: 50%;
+   background-color: white;
+   padding: 10px;
+   position: absolute;
+
+ }
+ div.profile-info {
+   background-color: white;
+   height: 100;
+   width: 300px;
+   padding: 15px;
+   position: absolute;
+   right: 1px;
+   color: #116530;
+   font-weight: 500;
+   border-radius: 10px;
+ }
+
+ @media (max-width: 989px ) {
+   div.avatar-profile {
+      position: relative;
+      margin-top: 10px;
+      left: 1px;
+   }
+   div.profile-info {
+      background-color: white;
+      height: 100;
+      width: 300px;
+      padding: 15px;
+      position: absolute;
+      left: 10px;
+    }
+ }

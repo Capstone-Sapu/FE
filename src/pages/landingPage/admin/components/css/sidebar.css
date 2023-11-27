@@ -1,0 +1,37 @@
+svg.icon-sidebar {
+    margin-right:10px ;
+    height: 26px;
+    width: 26px;
+}
+div.navigasi {
+    height: 25px;
+    margin: 15px;
+    padding: 2px;
+    font-weight: 500;
+    cursor: pointer;
+    color: white;
+}
+div.sidebar-admin {
+    border-radius: 10px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    margin-right: 264px;
+    background-color: #116530 !important;
+}
+hr.hr-sidebar {
+    background-color: white;
+    height: 2px;
+    opacity: 1;
+    border: none;
+}
+
+.sidebar-admin ul a.active {
+    background-color: #FFCC1D;
+    border-radius: 10px;
+
+}
+.sidebar-admin div.navigasi:hover  {
+    font-weight: 700;
+}
