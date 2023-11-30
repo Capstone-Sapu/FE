@@ -61,7 +61,7 @@ const SampahEdit = (props) => {
           <InputElement
             label="Nama Sampah"
             type="text"
-            name="nama_sampah"
+            name="name"
             id="nama_sampah"
             value={sampah.name === undefined ? "" : sampah.name}
             onChange={handleChange}
@@ -83,7 +83,7 @@ const SampahEdit = (props) => {
           <InputElement
             label=" Harga"
             type="number"
-            name="harga"
+            name="price"
             id="harga"
             value={sampah.price === undefined ? "" : sampah.price}
             onChange={handleChange}
@@ -113,7 +113,7 @@ const SampahEdit = (props) => {
   );
 };
 SampahEdit.propTypes = {
-  idSampah: PropTypes.number.isRequired,
+  idSampah: PropTypes.number,
 };
 
 export default SampahEdit;
