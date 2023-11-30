@@ -1,13 +1,14 @@
 import { GiHamburgerMenu } from "react-icons/gi";
 import { RxAvatar } from "react-icons/rx";
 import { FaTimes } from "react-icons/fa";
-
 import { NavLink, useNavigate } from "react-router-dom";
 import "./NavbarComponents.css";
 import { useEffect, useState } from "react";
 import { ButtonElement } from "../elements/button";
+import axios from "axios";
 
 const NavbarComponent = () => {
+  const userData = JSON.parse(localStorage.getItem("userData"));
   const [showProfile, setShowProfile] = useState(false);
   const navigate = useNavigate();
 
@@ -15,13 +16,20 @@ const NavbarComponent = () => {
       setShowProfile(!showProfile);
     
   };
-  const handleLogOut = () => {
-    navigate("/");
-  };
+
 
   useEffect (()=> {
     
   })
+  const logOut = async () => {
+    try {
+      await axios.delete ('http://localhost:4000/logout');
+      localStorage.clear();
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <>
@@ -69,11 +77,12 @@ const NavbarComponent = () => {
                   <div className="text-end" onClick={handleClick}>
                     <FaTimes />
                   </div>
-                  <p>Username: Akhmad Sugiannoor</p>
-                  <p>Total Saldo: Rp. 100.000.000</p>
+                  <p>{userData.name}</p>
+                  <p>{userData.email}</p>
+                  <p>Total Saldo: Rp. {userData.balance}</p>
                   <ButtonElement
                     className="btn btn-danger logout-btn"
-                    handleClick={handleLogOut}
+                    handleClick={logOut}
                     isLoading={false}
                   >
                     Logout

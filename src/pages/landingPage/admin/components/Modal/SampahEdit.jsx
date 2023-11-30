@@ -29,7 +29,6 @@ const SampahEdit = (props) => {
           `https://fakestoreapi.com/products/${props.idSampah}`
         );
         const sampah = response.data;
-        console.log(sampah);
 
         // Set data pengguna dari respons API
         setSampah({
@@ -107,13 +106,6 @@ const SampahEdit = (props) => {
             isLoading={false}
           >
             Simpan
-          </ButtonElement>
-          <ButtonElement
-            className="btn btn-danger mx-2"
-            isLoading={false}
-            handleClick={handleHide}
-          >
-            Kembali
           </ButtonElement>
         </form>
       </Modal>

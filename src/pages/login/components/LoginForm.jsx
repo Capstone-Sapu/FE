@@ -13,26 +13,25 @@ const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [msg, setMsg] = useState ('');
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState (false);
-  // URL Endpoint API
-  const url = "https://dummyjson.com/auth/login"; 
+  const [Loading, setLoading] = useState (false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsLoading (true)
-
+    setLoading (true)
     try {
-      const response = await axios.post(url, {
+        await axios.post("http://localhost:4000/login", {
         email: email,
-        password: password,
-      });
-      setIsLoading(false)
-      console.log(response.data);
+        password: password
+      }, {
+    withCredentials: true
+  });
+       setLoading (false);
       navigate("/beranda");
     } catch (error) {
-      setIsLoading (false);
       if (error.response) {
-        setMsg(error.response.data.message);
+        setMsg(error.response.data.msg);
+        setLoading (false)
+        
       }
     }
   };
@@ -59,7 +58,7 @@ const LoginForm = () => {
       <form onSubmit={handleSubmit}>
         <div className="position-relative mb-2 form-group has-icon-right">
           <InputElement
-            type="text"
+            type="email"
             name="email"
             placeholder="Masukkan email"
             value={email}
@@ -95,8 +94,7 @@ const LoginForm = () => {
         </div>
         <div className="feedback-login mt-2 text-danger">{msg}</div>
         <ButtonElement
-          handleClick={handleSubmit}
-          isLoading={isLoading}
+          isLoading={Loading}
           type="submit"
           className="btn btn-success mt-5 w-100"
         >

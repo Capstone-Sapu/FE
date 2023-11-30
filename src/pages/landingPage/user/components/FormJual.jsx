@@ -18,7 +18,7 @@ const FormJual = () => {
     alamat: "",
     harga: "",
     image: "",
-    jumlah: 0,
+    jumlah: undefined,
   });
 
   useEffect(() => {
@@ -78,7 +78,7 @@ const FormJual = () => {
       setModalShow(true);
     }
   };
-
+  const userData = JSON.parse(localStorage.getItem("userData"));  
   return (
     <>
       <div className="d-flex flex-column container bg-white p-4">
@@ -106,7 +106,7 @@ const FormJual = () => {
               name="nama_lengkap"
               id="nama_lengkap"
               value={
-                formData.nama_lengkap === undefined ? "" : formData.nama_lengkap
+                userData.name === undefined ? "" : userData.name
               }
               className="mb-2"
               disabled
@@ -185,9 +185,9 @@ const FormJual = () => {
             >
               <div className="mt-2" style={{ fontSize: "1.2rem" }}>
                 <strong>Nama Penjual:</strong>{" "}
-                {formData.nama_lengkap === undefined
+                {userData.name === undefined
                   ? ""
-                  : formData.nama_lengkap}
+                  : userData.name}
               </div>
               <div className="mt-2" style={{ fontSize: "1.2rem" }}>
                 <strong>Nama Barang:</strong>{" "}
