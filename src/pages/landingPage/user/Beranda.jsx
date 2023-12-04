@@ -10,8 +10,11 @@ import CardItem from "./components/cardItem";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
+import { useNavigate } from "react-router-dom";
+
 
 const Beranda = () => {
+  const navigate = useNavigate();
   const handleClick = () => {
     const kirimSampahSection = document.getElementById("kirim-sampah");
     if (kirimSampahSection) {
@@ -19,8 +22,12 @@ const Beranda = () => {
     }
   };
   useEffect(() => {
-    refreshToken();
-  }, []);
+    if (!localStorage.getItem('access_token')) {
+      navigate ("/")
+    }else {
+      refreshToken();
+    }
+  }, [navigate]);
 
   const [user, setUser] = useState({
     balance: 0,
