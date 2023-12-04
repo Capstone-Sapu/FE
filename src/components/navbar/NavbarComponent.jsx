@@ -16,11 +16,12 @@ const NavbarComponent = () => {
       setShowProfile(!showProfile);
     
   };
-
-
-  useEffect (()=> {
-    
-  })
+  useEffect(() => {
+    if (!localStorage.getItem('access_token')) {
+      navigate ("/")
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   const logOut = async () => {
     try {
       await axios.delete ('http://localhost:4000/logout');

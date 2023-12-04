@@ -14,19 +14,19 @@ const LoginForm = () => {
   const [msg, setMsg] = useState ('');
   const navigate = useNavigate();
   const [Loading, setLoading] = useState (false);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading (true)
     try {
-        await axios.post("http://localhost:4000/login", {
+        const response = await axios.post("http://localhost:4000/login", {
         email: email,
         password: password
       }, {
     withCredentials: true
   });
-       setLoading (false);
+      setLoading (false);
       navigate("/beranda");
+      localStorage.setItem("access_token", response.data.access_token);
     } catch (error) {
       if (error.response) {
         setMsg(error.response.data.msg);

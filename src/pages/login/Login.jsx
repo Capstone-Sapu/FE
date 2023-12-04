@@ -1,7 +1,16 @@
+import { useEffect } from "react"
 import LoginForm from "./components/LoginForm"
 import './login.css'
+import { useNavigate } from "react-router-dom"
 
 const Login = () => {
+  const navigate = useNavigate ();
+  
+  useEffect (()=> {
+    if (localStorage.getItem ('access_token') !== null) {
+      navigate ("/beranda");
+    }
+  }, [navigate])
   return (
     <div>
        <div className="container-fluid login-container p-0">
