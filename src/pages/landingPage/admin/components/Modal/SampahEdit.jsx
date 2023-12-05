@@ -8,12 +8,20 @@ import { ButtonElement } from "../../../../../components/elements/button";
 const SampahEdit = (props) => {
   const [modalShow, setModalShow] = useState(true);
   const [sampah, setSampah] = useState({
-    name: "",
-    deskripsi: "",
-    image: "",
-    price: undefined, // Isi ini sesuai dengan data yang Anda dapat dari API
+    title: "",
+    description: "",
+    price: 0,
+    file: "",
+    preview: "",
   });
-
+  const loadImage = (e) => {
+    const image = e.target.files[0];
+     setSampah((prevData) => ({
+    ...prevData,
+    file: image,
+    preview: URL.createObjectURL(image)
+  }));
+  };
   const handleChange = (e) => {
     const { name, value } = e.target;
     setSampah((prevData) => ({
@@ -26,17 +34,17 @@ const SampahEdit = (props) => {
     const fetchSampah = async () => {
       try {
         const response = await axios.get(
-          `https://fakestoreapi.com/products/${props.idSampah}`
+          `http://localhost:4000/items/${props.idSampah}`
         );
         const sampah = response.data;
-
-        // Set data pengguna dari respons API
         setSampah({
-          name: sampah.title,
-          deskripsi: sampah.description,
-          image: sampah.image,
+          title: sampah.name,
+          description: sampah.description,
           price: sampah.price,
+          file: sampah.image,
+          preview: sampah.url
         });
+        console.log(sampah)
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
@@ -45,6 +53,27 @@ const SampahEdit = (props) => {
     // Panggil fungsi untuk mengambil data pengguna saat komponen dimount
     fetchSampah();
   }, [props.idSampah]);
+
+  const updateProduct = async () => {
+    const formData = new FormData();
+
+    // Menambahkan data ke objek FormData
+    formData.append("title", sampah.title);
+    formData.append("file", sampah.file);
+    formData.append("description", sampah.description);
+    formData.append("price", sampah.price);
+
+    try {
+      await axios.patch(`http://localhost:4000/items/${props.idSampah}`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data"
+        }
+      });
+    } catch (error) {
+      console.log(error)
+    }
+    
+  };
 
   const handleHide = () => {
     setModalShow(false);
@@ -57,13 +86,26 @@ const SampahEdit = (props) => {
         onHide={handleHide}
         show={modalShow}
       >
-        <form>
+        <form onSubmit={updateProduct}>
+        <div>
+              {sampah.preview ? (
+                <figure className="text-center">
+                  <img
+                    src={sampah.preview}
+                    alt="Preview Image"
+                    style={{ width: "100px", height: "100px" }}
+                  />
+                </figure>
+              ) : (
+                ""
+              )}
+            </div>
           <InputElement
             label="Nama Sampah"
             type="text"
-            name="name"
-            id="nama_sampah"
-            value={sampah.name === undefined ? "" : sampah.name}
+            name="title"
+            id="title"
+            value={sampah.title === undefined ? "" : sampah.title}
             onChange={handleChange}
             className="mb-2"
             required
@@ -72,9 +114,9 @@ const SampahEdit = (props) => {
           <InputElement
             label="Deskripsi"
             type="text"
-            name="deskripsi"
-            id="deskripsi"
-            value={sampah.deskripsi === undefined ? "" : sampah.deskripsi}
+            name="description"
+            id="description"
+            value={sampah.description === undefined ? "" : sampah.description}
             onChange={handleChange}
             className="mb-2"
             required
@@ -84,7 +126,7 @@ const SampahEdit = (props) => {
             label=" Harga"
             type="number"
             name="price"
-            id="harga"
+            id="price"
             value={sampah.price === undefined ? "" : sampah.price}
             onChange={handleChange}
             required
@@ -96,8 +138,10 @@ const SampahEdit = (props) => {
             <input
               className="form-control"
               type="file"
-              name="gambar-sampah"
-              id="gambar-sampah"
+              name="image"
+              id="image"
+              onChange={loadImage}
+              
             />
           </div>
           <ButtonElement

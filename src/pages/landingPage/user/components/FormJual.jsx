@@ -25,15 +25,15 @@ const FormJual = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `https://fakestoreapi.com/products/${idBarang}`
+          `http://localhost:4000/items/${idBarang}`
         );
         const productData = response.data;
 
         setFormData((prevData) => ({
           ...prevData,
-          nama_barang: productData.title,
+          nama_barang: productData.name,
           harga: productData.price, // convert harga to string if needed
-          image: productData.image,
+          image: productData.url,
         }));
         setLoading(false);
       } catch (error) {
@@ -137,7 +137,7 @@ const FormJual = () => {
               type="text"
               name="harga"
               id="harga"
-              value={formData.harga === undefined ? "" : formData.harga}
+              value={formData.harga === undefined ? "" : formData.harga.toLocaleString("id-ID")}
               className="mb-2"
               disabled
             />
@@ -156,7 +156,7 @@ const FormJual = () => {
               className="text-end mt-5"
               style={{ fontWeight: 500, fontFamily: "inherit" }}
             >
-              Total: Rp.{formData.harga * formData.jumlah}
+              Total: Rp.{(formData.harga * formData.jumlah).toLocaleString('id-ID')}
             </div>
 
             <ButtonElement
@@ -168,7 +168,7 @@ const FormJual = () => {
             </ButtonElement>
             <ButtonElement
               handleClick={() => navigate(-1)}
-              type="submit"
+              type="button"
               className="btn btn-danger mx-2"
               isLoading={false}
             >

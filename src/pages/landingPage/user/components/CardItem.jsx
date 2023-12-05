@@ -11,7 +11,7 @@ import 'react-loading-skeleton/dist/skeleton.css'
 
 const CardItem = () => {
   const [products, setProducts] = useState([]);
-  const url = "https://fakestoreapi.com/products";
+  const url = "http://localhost:4000/items";
   const navigate = useNavigate()
     const [loading, setLoading] = useState(true);
 
@@ -85,13 +85,13 @@ const CardItem = () => {
               <div className="card-body d-flex gap-2">
                 <div className="gambar-sampah-container text-center">
                   <img
-                    src={product.image}
+                    src={product.url}
                     className="gambar-sampah"
-                    alt={`Gambar Sampah ${product.title}`}
+                    alt={`Gambar Sampah ${product.image}`}
                   />
                 </div>
                 <div>
-                  <h5 className="card-title">{product.title}</h5>
+                  <h5 className="card-title">{product.name}</h5>
                   <p>{product.description}</p>
                   <p>Rp. {product.price}</p>
                   <ButtonElement
