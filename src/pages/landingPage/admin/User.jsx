@@ -59,7 +59,7 @@ const User = () => {
         const response = await axios.get(
           `http://localhost:4000/users/${idUser}`
         );
-        const user = response.data.user;
+        const user = response.data;
 
         setUser((prevData) => ({
           ...prevData,
@@ -77,7 +77,7 @@ const User = () => {
     e.preventDefault();
     setLoading (!loading)
     try {
-      await axios.put(
+      await axios.patch(
         `http://localhost:4000/users/${selectedId}`, user
       );
       setLoading (loading)
