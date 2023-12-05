@@ -4,37 +4,23 @@ import { BsTrash3Fill } from "react-icons/bs";
 import "./css/user.css";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Modal from "../../../components/elements/modal/Modal";
 import { ButtonElement } from "../../../components/elements/button";
 import { InputElement } from "../../../components/elements/input";
+import axios from "axios";
 const User = () => {
   const [selectedId, setSelectedId] = useState();
   const [showModalEdit, setShowModalEdit] = useState();
   const [showModalDelete, setShowModalDelete] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [getUser, setGetUser] = useState([]);
+  const [errorMsg, setErrorMsg] = useState ();
   const [user, setUser] = useState({
-    id: undefined,
     name: "",
     email: "",
     username: "",
-    balance: 0,
   });
-  const getUsers = [
-    {
-      id: 1,
-      name: "Akhmad Sugiannoor",
-      email: "Sugiannoor@gmail.com",
-      username: "sugiannoor",
-      balance: 1000000,
-    },
-    {
-      id: 2,
-      name: "Jane Doe",
-      email: "doe@gmail.com",
-      username: "Doe",
-      balance: 120000,
-    },
-  ];
 
   const columns = [
     { field: "name", header: "Nama Customer" },
@@ -44,12 +30,70 @@ const User = () => {
   ];
   const handleDelete = (id) => {
     setShowModalDelete(!showModalDelete);
-    setSelectedId(id);
+    setSelectedId(id);  
   };
+  const deleteData = async () => {
+    try {
+      await axios.delete (`http://localhost:4000/users/${selectedId}`)
+    } catch (error) {
+      if (error.response && error.response.data) {
+        setErrorMsg(error.response.data.msg);
+      } else if (error.message) {
+        setErrorMsg(error.message);
+      } else {
+        setErrorMsg("Terjadi kesalahan server");
+      }
+    }
+  }
+  const hideModalEdit = () => {
+    setShowModalEdit (!showModalEdit);
+    setErrorMsg ("");
+  }
+
   const handleEdit = (id) => {
     setShowModalEdit(!showModalEdit);
-    setSelectedId(id);
+    const idUser = id;
+    setSelectedId(id)
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:4000/users/${idUser}`
+        );
+        const user = response.data.user;
+
+        setUser((prevData) => ({
+          ...prevData,
+          name: user.name,
+          email: user.email,
+          username: user.username,
+        }));
+      } catch (error) {
+        console.error("Error fetching User data:", error);
+      }
+    };
+    fetchData();    
+  }
+  const editData = async (e) => {
+    e.preventDefault();
+    setLoading (!loading)
+    try {
+      await axios.put(
+        `http://localhost:4000/users/${selectedId}`, user
+      );
+      setLoading (loading)
+      setShowModalEdit (!showModalEdit)
+    } catch (error) {
+      if (error.response && error.response.data) {
+        setErrorMsg(error.response.data.msg);
+      } else if (error.message) {
+        setErrorMsg(error.message);
+      } else {
+        setErrorMsg("Terjadi kesalahan server");
+      }
+      setLoading(loading);
+    }
   };
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUser((prevData) => ({
@@ -57,12 +101,26 @@ const User = () => {
       [name]: value,
     }));
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`http://localhost:4000/users`);
+        const usersData = response.data;
+        setGetUser(usersData);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+fetchData();
+  }, []);    
   return (
     <>
       <Sidebar />
       <main className="main-content-admin">
         <div className="table-responsive">
-          <DataTable value={getUsers}>
+          <DataTable value={getUser}>
             {columns.map((col, index) => (
               <Column key={index} field={col.field} header={col.header} />
             ))}
@@ -96,22 +154,24 @@ const User = () => {
             onHide={handleDelete}
             closeButton={true}
           >
-            <p>Yakin Untuk Menghapus Data ini {selectedId}</p>
+            <p>Yakin Untuk Menghapus Data ini Dengan Id: {selectedId}</p>
             <div className="text-end">
+              <form onSubmit={deleteData}>
               <ButtonElement type="submit" className="btn bg-danger text-white">
                 Hapus
               </ButtonElement>
+              </form>
             </div>
           </Modal>
         )}
         {showModalEdit && (
           <Modal
             show={showModalEdit}
-            onHide={handleEdit}
+            onHide={hideModalEdit}
             closeButton={true}
             title="Form Edit Customer"
           >
-            <form>
+            <form onSubmit={editData}>
               <InputElement
                 label="Nama Lengkap"
                 type="text"
@@ -142,21 +202,12 @@ const User = () => {
                 className="mb-2"
                 required
               />
-              <InputElement
-                label="Pendapatan"
-                type="number"
-                name="balance"
-                id="balance "
-                value={user.balance === undefined ? "" : user.balance}
-                onChange={handleChange}
-                className="mb-2"
-                disabled
-              />
+              <div className="text-danger text-center">{errorMsg}</div>
               <div className="text-end mt-3">
                 <ButtonElement
                   type="submit"
                   className="btn btn-success"
-                  isLoading={false}
+                  isLoading={loading}
                 >
                   Simpan
                 </ButtonElement>
