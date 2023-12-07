@@ -9,6 +9,7 @@ import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { InputElement } from "../../../components/elements/input";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const Sampah = () => {
   const [modalEditShow, setModalEditShow] = useState(false);
@@ -23,7 +24,6 @@ const Sampah = () => {
   const [preview, setPreview] = useState();
   const [sampahId, setSampahId] = useState();
   const [sampah, setSampah] = useState([]);
-  const [errorMsg, setErrorMsg] = useState ();
   
   const handleEdit = (id) => {
     setModalEditShow(!modalEditShow);
@@ -69,11 +69,11 @@ const Sampah = () => {
     } catch (error) {
      
       if (error.response && error.response.data) {
-        setErrorMsg(error.response.data.msg);
+        toast.error(error.response.data.msg);
       } else if (error.message) {
-        setErrorMsg(error.message);
+        toast.error(error.message);
       } else {
-        setErrorMsg("Terjadi kesalahan server");
+        toast.error("Terjadi kesalahan server");
       }
     }
   }

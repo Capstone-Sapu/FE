@@ -5,11 +5,11 @@ import { ButtonElement } from "../../../components/elements/button";
 import "./registerForm.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const RegisterForm = () => {
   const [showPassword1, setShowPassword1] = useState(false);
   const [showPassword2, setShowPassword2] = useState(false);
-  const [msg, setMsg] = useState("");
   const [loading, setLoading] = useState (false);
   const navigasi = useNavigate();
 
@@ -30,9 +30,8 @@ const RegisterForm = () => {
       navigasi("/")
     } catch (error) {
       if (error.response) {
-        setMsg(error.response.data.msg);
         setLoading (false)
-        
+        toast.error(error.response.data.msg);
       }
     }
   };
@@ -132,7 +131,6 @@ const RegisterForm = () => {
             className="mb-3 form-control"
             onChange={handleChange}
           />
-          <div className="text-center text-danger">{msg}</div>
           <ButtonElement
             isLoading={loading}
             type="submit"

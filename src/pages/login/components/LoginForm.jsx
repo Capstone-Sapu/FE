@@ -6,12 +6,12 @@ import { ButtonElement } from "../../../components/elements/button";
 import InputElement from "../../../components/elements/input/InputElement";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [msg, setMsg] = useState ('');
   const navigate = useNavigate();
   const [Loading, setLoading] = useState (false);
   const handleSubmit = async (e) => {
@@ -29,9 +29,8 @@ const LoginForm = () => {
       localStorage.setItem("access_token", response.data.access_token);
     } catch (error) {
       if (error.response) {
-        setMsg(error.response.data.msg);
         setLoading (false)
-        
+        return toast.error(error.response.data.msg);
       }
     }
   };
@@ -92,7 +91,7 @@ const LoginForm = () => {
             )}
           </span>
         </div>
-        <div className="feedback-login mt-2 text-danger">{msg}</div>
+        {/* <div className="feedback-login mt-2 text-danger">{msg}</div> */}
         <ButtonElement
           isLoading={Loading}
           type="submit"

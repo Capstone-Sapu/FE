@@ -6,6 +6,7 @@ import axios from "axios";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import Modal from "../../../../components/elements/modal/Modal";
+import { toast } from "react-toastify";
 
 const FormJual = () => {
   const [modalShow, setModalShow] = useState(false);
@@ -16,10 +17,30 @@ const FormJual = () => {
     nama_lengkap: "",
     nama_barang: "",
     alamat: "",
+    nomor_hp: "",
     harga: "",
     image: "",
     jumlah: undefined,
   });
+  const userData = JSON.parse(localStorage.getItem("userData")); 
+  const dataToPost = {
+    id_item: idBarang,
+    id_user: userData.userId,
+    address: formData.alamat,
+    noHp: formData.nomor_hp,
+    quantity: formData.jumlah,
+  };
+  const saveTransaksi = async (e) =>{
+    e.preventDefault();
+    try {
+      await axios.post("http://localhost:4000/transaksi", dataToPost);
+      toast.success ("Team akan Menjemput Sampah ke lokasi 1 x 24 Jam");
+      setModalShow (!modalShow)
+    } catch (error) {
+      toast.error (error.response.data.msg)
+      setLoading(false);
+    }
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -54,22 +75,6 @@ const FormJual = () => {
   const hideModal = () => {
     setModalShow(false);
   };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    try {
-      const response = await axios.post("URL_API_ANDA", formData);
-      console.log("Data berhasil dikirim:", response.data);
-      setLoading(false);
-
-    } catch (error) {
-      console.error("Error mengirim data:", error);
-      setLoading(false);
-    }
-    setModalShow(false);
-  };
-
   const handleClick = (e) => {
     e.preventDefault();
     if (formData.alamat === "" || formData.jumlah === "") {
@@ -77,8 +82,7 @@ const FormJual = () => {
     } else {
       setModalShow(true);
     }
-  };
-  const userData = JSON.parse(localStorage.getItem("userData"));  
+  }; 
   return (
     <>
       <div className="d-flex flex-column container bg-white p-4">
@@ -128,6 +132,16 @@ const FormJual = () => {
               name="alamat"
               id="alamat"
               value={formData.alamat === undefined ? "" : formData.alamat}
+              onChange={handleChange}
+              className="mb-2"
+              required
+            />
+            <InputElement
+              label="No Handphone *"
+              type="text"
+              name="nomor_hp"
+              id="nomor_hp"
+              value={formData.nomor_hp === undefined ? "" : formData.nomor_hp}
               onChange={handleChange}
               className="mb-2"
               required
@@ -198,6 +212,10 @@ const FormJual = () => {
                 {formData.alamat === undefined ? "" : formData.alamat}
               </div>
               <div className="mt-2" style={{ fontSize: "1.2rem" }}>
+                <strong>Nomor HP:</strong>{" "}
+                {formData.nomor_hp === undefined ? "" : formData.nomor_hp}
+              </div>
+              <div className="mt-2" style={{ fontSize: "1.2rem" }}>
                 <strong>Harga / Kg:</strong>{" "}
                 {formData.harga === undefined ? "" : formData.harga}
               </div>
@@ -214,7 +232,7 @@ const FormJual = () => {
                 }}
               >
                 <strong>Total Transaksi:</strong> Rp.
-                {formData.harga * formData.jumlah}
+                {(formData.harga * formData.jumlah).toLocaleString("id-ID")}
               </div>
               <div className="d-flex align-items-center justify-content-end gap-2 p-3">
                 <ButtonElement
@@ -224,11 +242,10 @@ const FormJual = () => {
                 >
                   Batal
                 </ButtonElement>
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={saveTransaksi}>
                 <ButtonElement
                   type="submit"
                   className="btn bg-success text-white"
-                  handleClick={handleSubmit}
                 >
                   Kirim
                 </ButtonElement>

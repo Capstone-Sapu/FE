@@ -9,13 +9,13 @@ import Modal from "../../../components/elements/modal/Modal";
 import { ButtonElement } from "../../../components/elements/button";
 import { InputElement } from "../../../components/elements/input";
 import axios from "axios";
+import { toast } from "react-toastify";
 const User = () => {
   const [selectedId, setSelectedId] = useState();
   const [showModalEdit, setShowModalEdit] = useState();
   const [showModalDelete, setShowModalDelete] = useState(false);
   const [loading, setLoading] = useState(false);
   const [getUser, setGetUser] = useState([]);
-  const [errorMsg, setErrorMsg] = useState ();
   const [user, setUser] = useState({
     name: "",
     email: "",
@@ -35,13 +35,14 @@ const User = () => {
   const deleteData = async () => {
     try {
       await axios.delete (`http://localhost:4000/users/${selectedId}`)
+      toast.success("Data Berhasil Terhapus")
     } catch (error) {
       if (error.response && error.response.data) {
-        setErrorMsg(error.response.data.msg);
+        toast.error(error.response.data.msg);
       } else if (error.message) {
-        setErrorMsg(error.message);
+        toast.error(error.message);
       } else {
-        setErrorMsg("Terjadi kesalahan server");
+        toast.error("Terjadi kesalahan server");
       }
     }
   }
@@ -82,13 +83,14 @@ const User = () => {
       );
       setLoading (loading)
       setShowModalEdit (!showModalEdit)
+      window.location.reload();
     } catch (error) {
       if (error.response && error.response.data) {
-        setErrorMsg(error.response.data.msg);
+        toast.error(error.response.data.msg);
       } else if (error.message) {
-        setErrorMsg(error.message);
+        toast.error(error.message);
       } else {
-        setErrorMsg("Terjadi kesalahan server");
+        toast.error("Terjadi kesalahan server");
       }
       setLoading(loading);
     }
@@ -202,7 +204,6 @@ fetchData();
                 className="mb-2"
                 required
               />
-              <div className="text-danger text-center">{errorMsg}</div>
               <div className="text-end mt-3">
                 <ButtonElement
                   type="submit"

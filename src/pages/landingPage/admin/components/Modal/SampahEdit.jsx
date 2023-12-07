@@ -4,6 +4,7 @@ import Modal from "../../../../../components/elements/modal/Modal";
 import axios from "axios";
 import PropTypes from "prop-types";
 import { ButtonElement } from "../../../../../components/elements/button";
+import { toast } from "react-toastify";
 
 const SampahEdit = (props) => {
   const [modalShow, setModalShow] = useState(true);
@@ -44,7 +45,6 @@ const SampahEdit = (props) => {
           file: sampah.image,
           preview: sampah.url
         });
-        console.log(sampah)
       } catch (error) {
         console.error("Error fetching user data:", error);
       }
@@ -54,7 +54,8 @@ const SampahEdit = (props) => {
     fetchSampah();
   }, [props.idSampah]);
 
-  const updateProduct = async () => {
+  const updateProduct = async (e) => {
+    e.preventDefault ();
     const formData = new FormData();
 
     // Menambahkan data ke objek FormData
@@ -69,8 +70,9 @@ const SampahEdit = (props) => {
           "Content-Type": "multipart/form-data"
         }
       });
+      window.location.reload ();
     } catch (error) {
-      console.log(error)
+      toast.error (error.response.data.msg)
     }
     
   };
