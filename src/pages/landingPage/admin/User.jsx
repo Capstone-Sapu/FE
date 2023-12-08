@@ -48,7 +48,6 @@ const User = () => {
   }
   const hideModalEdit = () => {
     setShowModalEdit (!showModalEdit);
-    setErrorMsg ("");
   }
 
   const handleEdit = (id) => {

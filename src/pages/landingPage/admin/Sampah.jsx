@@ -29,6 +29,10 @@ const Sampah = () => {
     setModalEditShow(!modalEditShow);
     setSampahId(id);
   };
+  const handleEditHide = () => {
+    setModalEditShow(!modalEditShow);
+  };
+  
   const loadImage = (e) => {
     const image = e.target.files[0];
     setFile(image);
@@ -146,7 +150,7 @@ const Sampah = () => {
           <Column key="action" header="Aksi" body={actionTemplate} />
         </DataTable>
 
-        {modalEditShow && <SampahEdit idSampah={sampahId} />}
+        {modalEditShow && <SampahEdit idSampah={sampahId} show = {modalEditShow} onHide={handleEditHide}/>}
         {modalDeleteShow && (
           
           <Modal

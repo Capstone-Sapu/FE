@@ -1,47 +1,76 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Sidebar from "./components/sidebar/sidebar";
 import { FaTimesCircle, FaCheckCircle } from "react-icons/fa";
 import Modal from "../../../components/elements/modal/Modal";
 import { ButtonElement } from "../../../components/elements/button";
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
+import axios from "axios";
+import { toast } from "react-toastify";
 const Transaksi = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedId, setSelectedId] = useState ();
   const [selectedIdDelete, setSelectedIdDelete] = useState ();
   const [showModalDelete, setShowModalDelete] = useState(false);
-  const transaksi = [
-    {
-      id: 1,
-      namaUser: "John Doe",
-      namaSampah: "Plastik",
-      harga: 5000,
-      quantity: 2,
-      alamat: "Jl.Kayu Tangi",
-      tanggal: "2023-11-13",
-      total: 10000,
-    },
-    {
-      id: 2,
-      namaUser: "Jane Doe",
-      namaSampah: "Kertas",
-      harga: 3000,
-      quantity: 5,
-      alamat: "Jl.Kayu Tangi",
-      tanggal: "2023-11-14",
-      total: 15000,
-    },
-  ];
-  const handleModal = (id) => {
+  const [transaksi, setTransaksi] = useState ([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`http://localhost:4000/transaksitable`);
+        const transaksiData = response.data;
+        setTransaksi(transaksiData);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+fetchData();
+  }, []);
+
+  const handleModal = async (id) => {
     setShowModal(!showModal);
-    setSelectedId (id)
+    setSelectedId (id)  
   };
+  
+  const updateBalance = async () => {
+    try {
+    await axios.patch (`http://localhost:4000/transaksi/balance/${selectedId}`);
+    toast.success("Saldo User Sudah Terupdate")
+    setShowModal (!showModal);
+  } catch (error) {
+    if (error.response && error.response.data) {
+      toast.error(error.response.data.msg);
+    } else if (error.message) {
+      toast.error(error.message);
+    } else {
+      toast.error("Terjadi kesalahan server");
+    }
+  }
+  }
+  
   const handleModalDelete = (id) => {
     setShowModalDelete(!showModalDelete);
     setSelectedIdDelete(id)
   };
+
+  const deleteTransaksi = async () => {
+    try {
+      await axios.delete (`http://localhost:4000/transaksi/${selectedIdDelete}`);
+      toast.success("Data Berhasil Terhapus")
+      setShowModalDelete (!showModalDelete);
+    } catch (error) {
+      if (error.response && error.response.data) {
+        toast.error(error.response.data.msg);
+      } else if (error.message) {
+        toast.error(error.message);
+      } else {
+        toast.error("Terjadi kesalahan server");
+      }
+    }
+  }
   const handleHide = () => {
     setShowModal(!showModal);
+
   };
   const handleHideDelete = () => {
     setShowModalDelete(!showModalDelete);
@@ -50,12 +79,13 @@ const Transaksi = () => {
 
 
   const columns = [
-    { field: 'namaUser', header: 'Nama User' },
-    { field: 'namaSampah', header: 'Nama Sampah' },
-    { field: 'harga', header: 'Harga' },
+    { field: 'user.name', header: 'Nama User' },
+    { field: 'product.name', header: 'Nama Sampah' },
+    { field: 'product.price', header: 'Harga' },
     { field: 'quantity', header: 'Jumlah (Kg)' },
-    { field: 'alamat', header: 'Alamat' },
-    { field: 'tanggal', header: 'Tanggal' },
+    { field: 'address', header: 'Alamat' },
+    { field: 'noHp', header: 'No Handphone' },
+    { field: 'date', header: 'Tanggal' },
     { field: 'total', header: 'Total' },
   ];
   return (
@@ -103,6 +133,7 @@ const Transaksi = () => {
 
             <ButtonElement
                   type="submit"
+                  handleClick={updateBalance}
                   className="btn bg-success text-white"
                   >
                   Kirim
@@ -114,7 +145,7 @@ const Transaksi = () => {
           <Modal
             show={showModalDelete}
             onHide={handleHideDelete}
-            title="Hapus Transaksi"
+            title="Tolak Transaksi"
             closeButton={true}
             size={'md'}
           >
@@ -123,6 +154,7 @@ const Transaksi = () => {
 
             <ButtonElement
                   type="submit"
+                  handleClick={deleteTransaksi}
                   className="btn bg-danger text-white"
                   >
                   Hapus
@@ -133,6 +165,6 @@ const Transaksi = () => {
       </main>
     </>
   );
-};
+  };
 
 export default Transaksi;

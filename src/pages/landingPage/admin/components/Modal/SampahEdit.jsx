@@ -1,13 +1,12 @@
+/* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import { InputElement } from "../../../../../components/elements/input";
 import Modal from "../../../../../components/elements/modal/Modal";
 import axios from "axios";
-import PropTypes from "prop-types";
 import { ButtonElement } from "../../../../../components/elements/button";
 import { toast } from "react-toastify";
 
 const SampahEdit = (props) => {
-  const [modalShow, setModalShow] = useState(true);
   const [sampah, setSampah] = useState({
     title: "",
     description: "",
@@ -77,16 +76,13 @@ const SampahEdit = (props) => {
     
   };
 
-  const handleHide = () => {
-    setModalShow(false);
-  };
   return (
     <>
       <Modal
         title="Form Edit Sampah"
         closeButton={true}
-        onHide={handleHide}
-        show={modalShow}
+        onHide={props.onHide}
+        show={props.show}
       >
         <form onSubmit={updateProduct}>
         <div>
@@ -157,9 +153,6 @@ const SampahEdit = (props) => {
       </Modal>
     </>
   );
-};
-SampahEdit.propTypes = {
-  idSampah: PropTypes.number,
 };
 
 export default SampahEdit;

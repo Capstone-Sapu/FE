@@ -7,6 +7,7 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import Modal from "../../../../components/elements/modal/Modal";
 import { toast } from "react-toastify";
+import moment from "moment";
 
 const FormJual = () => {
   const [modalShow, setModalShow] = useState(false);
@@ -21,6 +22,7 @@ const FormJual = () => {
     harga: "",
     image: "",
     jumlah: undefined,
+    date: moment().format("YYYY-MM-DD"),
   });
   const userData = JSON.parse(localStorage.getItem("userData")); 
   const dataToPost = {
@@ -29,6 +31,7 @@ const FormJual = () => {
     address: formData.alamat,
     noHp: formData.nomor_hp,
     quantity: formData.jumlah,
+    date: formData.date,
   };
   const saveTransaksi = async (e) =>{
     e.preventDefault();
@@ -218,6 +221,10 @@ const FormJual = () => {
               <div className="mt-2" style={{ fontSize: "1.2rem" }}>
                 <strong>Harga / Kg:</strong>{" "}
                 {formData.harga === undefined ? "" : formData.harga}
+              </div>
+              <div className="mt-2" style={{ fontSize: "1.2rem" }}>
+                <strong>Tanggal:</strong>{" "}
+                {moment(formData.date).format("DD MMMM YYYY")}
               </div>
               <div className="mt-2" style={{ fontSize: "1.2rem" }}>
                 <strong>Perkiraan Sampah (Kg):</strong>{" "}
