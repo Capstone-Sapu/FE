@@ -21,7 +21,7 @@ const CardProfile = ({ nama, role, sumber, github, instagram, linkedIn}) => {
         </svg>
         <div className="card-body d-flex flex-column text-center">
           <img
-            src={`public/${sumber}.jpg`}
+            src={`/${sumber}.jpg`}
             alt={`Gambar ${sumber}`}
             className="user-image mx-auto"
             style={{ zIndex: 1 }}

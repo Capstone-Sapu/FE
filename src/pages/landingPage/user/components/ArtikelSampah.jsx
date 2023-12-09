@@ -15,13 +15,13 @@ const ArtikelSampah = () => {
       </article>
       <div id="kirim-sampah" className="gambar-sampah row mt-5">
         <div className="col-4">
-        <img className="gambar-sampah "src="public/kardus.webp" alt="gambar kardus" />
+        <img className="gambar-sampah "src="/kardus.webp" alt="gambar kardus" />
         </div>
         <div className="col-4">
-          <img className="gambar-sampah"src="public/kertas-hps.webp" alt="kertas HPS" />
+          <img className="gambar-sampah"src="/kertas-hps.webp" alt="kertas HPS" />
         </div>
         <div className="col-4">
-          <img className="gambar-sampah"src="public/kaleng-bekas.png" alt="kertas HPS" />
+          <img className="gambar-sampah"src="/kaleng-bekas.png" alt="kertas HPS" />
         </div>
       </div>
     </main>

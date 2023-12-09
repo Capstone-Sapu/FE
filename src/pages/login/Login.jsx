@@ -17,7 +17,7 @@ const Login = () => {
         <div className="row g-0 card-body">
           <div className="col-lg-6 col-md-12 d-flex justify-content-center align-items-center">
             <img
-              src="public\welcome_banner.jpg"
+              src="/welcome_banner.jpg"
               alt="login-cover"
               className="login-cover"
             />
