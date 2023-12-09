@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Sidebar from "./components/sidebar/sidebar";
+import Sidebar from "./components/sidebar/Sidebar";
 import { FaTimesCircle, FaCheckCircle } from "react-icons/fa";
 import Modal from "../../../components/elements/modal/Modal";
 import { ButtonElement } from "../../../components/elements/button";

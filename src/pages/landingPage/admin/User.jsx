@@ -1,4 +1,4 @@
-import Sidebar from "./components/sidebar/sidebar";
+import Sidebar from "./components/sidebar/Sidebar";
 import { HiOutlinePencil } from "react-icons/hi";
 import { BsTrash3Fill } from "react-icons/bs";
 import "./css/user.css";

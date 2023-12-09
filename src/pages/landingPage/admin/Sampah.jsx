@@ -1,5 +1,5 @@
 import { BsTrash3Fill } from "react-icons/bs";
-import Sidebar from "./components/sidebar/sidebar";
+import Sidebar from "./components/sidebar/Sidebar";
 import { HiOutlinePencil } from "react-icons/hi";
 import { ButtonElement } from "../../../components/elements/button";
 import { useEffect, useState } from "react";
