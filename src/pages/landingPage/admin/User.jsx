@@ -55,8 +55,28 @@ const User = () => {
 
   const handleEdit = (id) => {
     setShowModalEdit(!showModalEdit);
+    const idUser = id;
     setSelectedId(id)
-  } 
+    
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          `${import.meta.env.VITE_API_URL}/users/${idUser}`
+        );
+        const user = response.data;
+
+        setUser((prevData) => ({
+          ...prevData,
+          name: user.name,
+          email: user.email,
+          username: user.username,
+        }));
+      } catch (error) {
+        console.error("Error fetching User data:", error);
+      }
+    };
+    fetchData();    
+  }
   const editData = async (e) => {
     e.preventDefault();
     setLoading (!loading)
