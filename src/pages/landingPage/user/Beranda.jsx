@@ -21,26 +21,30 @@ const Beranda = () => {
       kirimSampahSection.scrollIntoView({ behavior: "smooth" });
     }
   };
-  useEffect(() => {
-    if (!localStorage.getItem('access_token')) {
-      navigate ("/")
-    }else {
-      refreshToken();
-    }
-  }, [navigate]);
-
   const [user, setUser] = useState({
     balance: 0,
     email: "",
     exp: 0,
     name: "",
     userId: 0,
-  }); 
+    role: "",
+  });
+
+  useEffect(() => {
+    if (!localStorage.getItem('access_token')) {
+      navigate ("/")
+    }else {
+      refreshToken();
+    }
+
+  }, []);
+
+
  
 
   const refreshToken = async () => {
     try {
-      const response = await axios.get("http://localhost:4000/token", {
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/token`, {
         withCredentials: true,
       });
       const decoded = jwtDecode(response.data.access_token);
@@ -50,6 +54,7 @@ const Beranda = () => {
         exp: decoded.exp,
         userId: decoded.userId,
         balance: decoded.balance,
+        role: decoded.role,
       });
       localStorage.setItem("userData", JSON.stringify(decoded));
     } catch (error) {

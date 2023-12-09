@@ -13,7 +13,7 @@ const About = () => {
       <div className="container-fluid bg-white p-3">
       <YukSapu/>
       </div>    
-      <div className="container mt-2">
+      <div className="container mt-2 ">
       <CardTeam/>     
       </div>
       <FooterComponent/>

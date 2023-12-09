@@ -48,12 +48,12 @@ const CardTeam = () => {
     <>
       <h4 className="header-card-team text-center">Tim Pengembang</h4>
       <hr className="line-header" />
-      <div className="row mb-5">
+      <div className="row mb-5 d-flex justify-content-center">
           {/* File Harus Jpg props sumber akan menghasilan Sugi.jpg*/}
           {teamMember.map ((member, key) => (
             <CardProfile key={key} {...member}/>
           ))}
-      </div>
+        </div>
     </>
   );
 };

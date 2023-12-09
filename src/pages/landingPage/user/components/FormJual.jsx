@@ -36,9 +36,9 @@ const FormJual = () => {
   const saveTransaksi = async (e) =>{
     e.preventDefault();
     try {
-      await axios.post("http://localhost:4000/transaksi", dataToPost);
+      await axios.post(`${import.meta.env.VITE_API_URL}/transaksi`, dataToPost);
       toast.success ("Team akan Menjemput Sampah ke lokasi 1 x 24 Jam");
-      setModalShow (!modalShow)
+      setModalShow (!modalShow);
     } catch (error) {
       toast.error (error.response.data.msg)
       setLoading(false);
@@ -49,7 +49,7 @@ const FormJual = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:4000/items/${idBarang}`
+          `${import.meta.env.VITE_API_URL}/items/${idBarang}`
         );
         const productData = response.data;
 

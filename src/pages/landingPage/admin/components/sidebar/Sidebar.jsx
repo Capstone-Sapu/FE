@@ -4,8 +4,25 @@ import { FaUser } from "react-icons/fa6";
 import { TbLogout } from "react-icons/tb";
 import { GiShoppingBag } from "react-icons/gi";
 import "../css/sidebar.css"
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { useEffect } from "react";
 const Sidebar = () => {
+  const navigate = useNavigate ();
+  const logOut = async () => {
+    try {
+      await axios.delete (`${import.meta.env.VITE_API_URL}/logout`);
+      localStorage.clear();
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  useEffect(() => {
+    if (!localStorage.getItem('access_token')) {
+      navigate ("/")
+    }
+  }, [navigate])
   return (
     
     <div
@@ -46,7 +63,7 @@ const Sidebar = () => {
          </NavLink>
       </ul>
       <hr className="hr-sidebar" />
-      <div className="sidebar-logout d-flex navigasi">
+      <div className="sidebar-logout d-flex navigasi" onClick={logOut}>
       <TbLogout className="icon-sidebar"/>
       Logout
       </div>

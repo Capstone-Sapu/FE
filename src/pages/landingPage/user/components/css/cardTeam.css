@@ -34,4 +34,5 @@ hr.line-header {
 
 .card-team {
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2) !important;
+    border-radius: 20px !important;
 }

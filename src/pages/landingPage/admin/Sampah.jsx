@@ -47,7 +47,8 @@ const Sampah = () => {
     setModalAddShow(!modalAddShow);
     setPreview("");
   };
-  const saveProduct = async () => {
+  const saveProduct = async (e) => {
+    e.preventDefault();
     const formData = new FormData();
 
     // Menambahkan data ke objek FormData
@@ -57,19 +58,26 @@ const Sampah = () => {
     formData.append("price", tambahSampah.price);
 
     try {
-      await axios.post("http://localhost:4000/items", formData, {
+      await axios.post(`${import.meta.env.VITE_API_URL}/items`, formData, {
         headers: {
           "Content-Type": "multipart/form-data"
         }
       });
+      toast.success ("Sampah ditambahkan")
+      fetchData();
+      setModalAddShow (!modalAddShow);
     } catch (error) {
-      console.log(error)
+        toast.error (error.response.data.msg);
     }
     
   };
-  const deleteData = async () => {
+  const deleteData = async (e) => {
+    e.preventDefault();
     try {
-      await axios.delete (`http://localhost:4000/items/${sampahId}`)
+      await axios.delete (`${import.meta.env.VITE_API_URL}/items/${sampahId}`);
+      toast.success ("Data Berhasil di hapus");
+      fetchData ();
+      setModalDeleteShow (!modalDeleteShow);
     } catch (error) {
      
       if (error.response && error.response.data) {
@@ -88,17 +96,15 @@ const Sampah = () => {
       [name]: value,
     }));
   };
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/items`);
+      setSampah(response.data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
   useEffect(() => {
-    const url = "http://localhost:4000/items";
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(url);
-        setSampah(response.data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
     fetchData();
   }, []);
 
@@ -150,7 +156,14 @@ const Sampah = () => {
           <Column key="action" header="Aksi" body={actionTemplate} />
         </DataTable>
 
-        {modalEditShow && <SampahEdit idSampah={sampahId} show = {modalEditShow} onHide={handleEditHide}/>}
+        {modalEditShow && <SampahEdit 
+        idSampah={sampahId} 
+        show ={modalEditShow} 
+        onHide={handleEditHide}
+        modalEditShow = {modalEditShow} 
+        setModalEditShow = {setModalEditShow}
+        setSampah = {setSampah}
+        />}
         {modalDeleteShow && (
           
           <Modal
@@ -219,7 +232,7 @@ const Sampah = () => {
                 required
               />
               <div className="my-3">
-                <label htmlFor="gambar-sampah" className="form-label">
+                <label htmlFor="image" className="form-label">
                   Gambar
                 </label>
                 <input

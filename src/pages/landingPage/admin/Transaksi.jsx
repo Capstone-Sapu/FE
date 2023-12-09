@@ -7,25 +7,28 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import axios from "axios";
 import { toast } from "react-toastify";
+import Search from "../../../components/elements/search/Search";
 const Transaksi = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedId, setSelectedId] = useState ();
   const [selectedIdDelete, setSelectedIdDelete] = useState ();
+  const [searchValue, setSearchValue] = useState ();
   const [showModalDelete, setShowModalDelete] = useState(false);
   const [transaksi, setTransaksi] = useState ([]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`http://localhost:4000/transaksitable`);
-        const transaksiData = response.data;
-        setTransaksi(transaksiData);
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-      }
-    };
 fetchData();
   }, []);
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/transaksitable`);
+      const transaksiData = response.data;
+      setTransaksi(transaksiData);
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
 
   const handleModal = async (id) => {
     setShowModal(!showModal);
@@ -34,9 +37,10 @@ fetchData();
   
   const updateBalance = async () => {
     try {
-    await axios.patch (`http://localhost:4000/transaksi/balance/${selectedId}`);
+    await axios.patch (`${import.meta.env.VITE_API_URL}/transaksi/balance/${selectedId}`);
     toast.success("Saldo User Sudah Terupdate")
     setShowModal (!showModal);
+    fetchData();
   } catch (error) {
     if (error.response && error.response.data) {
       toast.error(error.response.data.msg);
@@ -55,9 +59,10 @@ fetchData();
 
   const deleteTransaksi = async () => {
     try {
-      await axios.delete (`http://localhost:4000/transaksi/${selectedIdDelete}`);
+      await axios.delete (`${import.meta.env.VITE_API_URL}/transaksi/${selectedIdDelete}`);
       toast.success("Data Berhasil Terhapus")
       setShowModalDelete (!showModalDelete);
+      fetchData();
     } catch (error) {
       if (error.response && error.response.data) {
         toast.error(error.response.data.msg);
@@ -92,7 +97,10 @@ fetchData();
     <>
       <Sidebar />
       <main className="main-content-admin">
-        <div className="table-responsive">
+        <div className= "d-flex justify-content-end">
+          <Search searchValue={searchValue} setSearchValue={setSearchValue} />
+        </div>
+        <div className="table-responsive mt-3">
            <DataTable value={transaksi} className="p-datatable-hover">
           {columns.map((col, index) => (
             <Column key={index} field={col.field} header={col.header} />

@@ -24,7 +24,7 @@ const NavbarComponent = () => {
   }, []);
   const logOut = async () => {
     try {
-      await axios.delete ('http://localhost:4000/logout');
+      await axios.delete (`${import.meta.env.VITE_API_URL}/logout`);
       localStorage.clear();
       navigate("/");
     } catch (error) {
@@ -78,9 +78,9 @@ const NavbarComponent = () => {
                   <div className="text-end" onClick={handleClick}>
                     <FaTimes />
                   </div>
-                  <p>{userData.name}</p>
-                  <p>{userData.email}</p>
-                  <p>Total Saldo: Rp. {userData.balance}</p>
+                  <p>{userData.name ? userData.name : ""}</p>
+                  <p>{userData.email ? userData.email : ""}</p>
+                  <p>Total Saldo: Rp. {userData.balance ? (userData.balance).toLocaleString("id-ID"): ""}</p>
                   <ButtonElement
                     className="btn btn-danger logout-btn"
                     handleClick={logOut}

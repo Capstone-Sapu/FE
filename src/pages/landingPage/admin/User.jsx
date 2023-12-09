@@ -32,10 +32,13 @@ const User = () => {
     setShowModalDelete(!showModalDelete);
     setSelectedId(id);  
   };
-  const deleteData = async () => {
+  const deleteData = async (e) => {
+    e.preventDefault();
     try {
-      await axios.delete (`http://localhost:4000/users/${selectedId}`)
+      await axios.delete (`${import.meta.env.VITE_API_URL}/users/${selectedId}`)
       toast.success("Data Berhasil Terhapus")
+      setShowModalDelete (!showModalDelete);
+      fetchData ();
     } catch (error) {
       if (error.response && error.response.data) {
         toast.error(error.response.data.msg);
@@ -54,6 +57,7 @@ const User = () => {
     setShowModalEdit(!showModalEdit);
     const idUser = id;
     setSelectedId(id)
+    
     const fetchData = async () => {
       try {
         const response = await axios.get(
@@ -78,11 +82,12 @@ const User = () => {
     setLoading (!loading)
     try {
       await axios.patch(
-        `http://localhost:4000/users/${selectedId}`, user
+        `${import.meta.env.VITE_API_URL}/users/${selectedId}`, user
       );
       setLoading (loading)
       setShowModalEdit (!showModalEdit)
-      window.location.reload();
+      toast.success ('Data Berhasil di update');
+      fetchData ();
     } catch (error) {
       if (error.response && error.response.data) {
         toast.error(error.response.data.msg);
@@ -102,19 +107,19 @@ const User = () => {
       [name]: value,
     }));
   };
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`http://localhost:4000/users`);
-        const usersData = response.data;
-        setGetUser(usersData);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-      }
-    };
-fetchData();
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/users`);
+      const usersData = response.data;
+      setGetUser(usersData);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
+  
+useEffect(() => {
+    fetchData();
   }, []);    
   return (
     <>

@@ -11,7 +11,7 @@ import 'react-loading-skeleton/dist/skeleton.css'
 
 const CardItem = () => {
   const [products, setProducts] = useState([]);
-  const url = "http://localhost:4000/items";
+  const url = `${import.meta.env.VITE_API_URL}/items`;
   const navigate = useNavigate()
     const [loading, setLoading] = useState(true);
 

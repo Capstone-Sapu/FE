@@ -34,7 +34,7 @@ const SampahEdit = (props) => {
     const fetchSampah = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:4000/items/${props.idSampah}`
+          `${import.meta.env.VITE_API_URL}/items/${props.idSampah}`
         );
         const sampah = response.data;
         setSampah({
@@ -52,6 +52,15 @@ const SampahEdit = (props) => {
     // Panggil fungsi untuk mengambil data pengguna saat komponen dimount
     fetchSampah();
   }, [props.idSampah]);
+  
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/items`);
+      props.setSampah(response.data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
 
   const updateProduct = async (e) => {
     e.preventDefault ();
@@ -64,12 +73,14 @@ const SampahEdit = (props) => {
     formData.append("price", sampah.price);
 
     try {
-      await axios.patch(`http://localhost:4000/items/${props.idSampah}`, formData, {
+      await axios.patch(`${import.meta.env.VITE_API_URL}/items/${props.idSampah}`, formData, {
         headers: {
           "Content-Type": "multipart/form-data"
         }
       });
-      window.location.reload ();
+      toast.success ("Data Berhasil di Edit")
+      props.setModalEditShow (!props.modalEditShow)
+      fetchData();
     } catch (error) {
       toast.error (error.response.data.msg)
     }
@@ -130,7 +141,7 @@ const SampahEdit = (props) => {
             required
           />
           <div className="my-3">
-            <label htmlFor="gambar-sampah" className="form-label">
+            <label htmlFor="image" className="form-label">
               Gambar
             </label>
             <input
