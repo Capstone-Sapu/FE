@@ -25,7 +25,7 @@ const RegisterForm = () => {
     e.preventDefault();
     setLoading (true)
     try {
-      await axios.post("http://localhost:4000/users", registrasi);
+      await axios.post(`${import.meta.env.VITE_API_URL}/users`, registrasi);
       setLoading (false)
       navigasi("/")
     } catch (error) {

@@ -71,7 +71,7 @@ const Beranda = () => {
       <div className="container-fluid mt-5">
         <div className="d-flex gap-4 align-items-center">
           <img
-            src="./src/assets/hero-beranda.webp"
+            src="src/assets/hero-beranda.webp"
             className="gambar-hero-beranda"
           />
           <div className="deskripsi">
