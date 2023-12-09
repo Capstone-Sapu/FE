@@ -6,10 +6,10 @@ const Collapse = () => {
        <div id="carouselExampleFade" className="carousel slide carousel-fade">
         <div className="carousel-inner">
           <div className="carousel-item active">
-            <img src="src/assets/hero2.png" className="d-block w-100" alt="Poster-1"  style={{height: '70vh'}}/>
+            <img src="public/hero2.png" className="d-block w-100" alt="Poster-1"  style={{height: '70vh'}}/>
           </div>
           <div className="carousel-item">
-            <img src="src/assets/hero3.jpeg" className="d-block w-100" alt="Poster-2" style={{height: '70vh'}}/>
+            <img src="public/hero3.jpeg" className="d-block w-100" alt="Poster-2" style={{height: '70vh'}}/>
           </div>
         </div>
         <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
