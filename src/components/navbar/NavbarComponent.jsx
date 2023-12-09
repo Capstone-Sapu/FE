@@ -8,7 +8,7 @@ import { ButtonElement } from "../elements/button";
 import axios from "axios";
 
 const NavbarComponent = () => {
-  const userData = JSON.parse(localStorage.getItem("userData"));
+  // const userData = JSON.parse(localStorage.getItem("userData"));
   const [showProfile, setShowProfile] = useState(false);
   const navigate = useNavigate();
 
@@ -78,9 +78,9 @@ const NavbarComponent = () => {
                   <div className="text-end" onClick={handleClick}>
                     <FaTimes />
                   </div>
-                  <p>{userData.name ? userData.name : ""}</p>
+                  {/* <p>{userData.name ? userData.name : ""}</p>
                   <p>{userData.email ? userData.email : ""}</p>
-                  <p>Total Saldo: Rp. {userData.balance ? (userData.balance).toLocaleString("id-ID"): ""}</p>
+                  <p>Total Saldo: Rp. {userData.balance ? (userData.balance).toLocaleString("id-ID"): ""}</p> */}
                   <ButtonElement
                     className="btn btn-danger logout-btn"
                     handleClick={logOut}
