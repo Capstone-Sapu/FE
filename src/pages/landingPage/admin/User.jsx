@@ -126,9 +126,9 @@ useEffect(() => {
       <Sidebar />
       <main className="main-content-admin">
         <div className="table-responsive">
-          <DataTable value={getUser}>
+          <DataTable value={getUser} paginator rows={10}>
             {columns.map((col, index) => (
-              <Column key={index} field={col.field} header={col.header} />
+              <Column key={index} field={col.field} header={col.header} sortable style={{ width: '25%' }} />
             ))}
             <Column
               header="Aksi"

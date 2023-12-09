@@ -84,7 +84,6 @@ fetchData();
 
 
   const columns = [
-    { field: 'user.name', header: 'Nama User' },
     { field: 'product.name', header: 'Nama Sampah' },
     { field: 'product.price', header: 'Harga' },
     { field: 'quantity', header: 'Jumlah (Kg)' },
@@ -101,9 +100,15 @@ fetchData();
           <Search searchValue={searchValue} setSearchValue={setSearchValue} />
         </div>
         <div className="table-responsive mt-3">
-           <DataTable value={transaksi} className="p-datatable-hover">
+           <DataTable value={transaksi}paginator rows={5}>
+          <Column 
+          key="username"
+          field="user.name"
+          header="Nama User"
+          sortable style={{ width: '15%' }}
+          />
           {columns.map((col, index) => (
-            <Column key={index} field={col.field} header={col.header} />
+            <Column key={index} field={col.field} header={col.header}/>
           ))}
           <Column
             header="Aksi"

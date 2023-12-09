@@ -110,8 +110,7 @@ const Sampah = () => {
 
   const columns = [
     { field: "name", header: "Nama Sampah" },
-    { field: "price", header: "Harga" },
-    { field: "description", header: "Deskripsi" }, // Add this for action column
+    { field: "price", header: "Harga" },// Add this for action column
   ];
 
   const actionTemplate = (rowData) => (
@@ -149,10 +148,11 @@ const Sampah = () => {
           </div>
         </div>
 
-        <DataTable value={sampah} tableStyle={{ minWidth: "50rem" }}>
+        <DataTable value={sampah} tableStyle={{ minWidth: "50rem" }} paginator rows={5} >
           {columns.map((col) => (
-            <Column key={col.field} field={col.field} header={col.header} />
+            <Column key={col.field} field={col.field} header={col.header} sortable style={{ width: '20%' }} />
           ))}
+          <Column key="description" header="Deksripsi" field="description" />
           <Column key="action" header="Aksi" body={actionTemplate} />
         </DataTable>
 
