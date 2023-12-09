@@ -1,4 +1,4 @@
-import './css/ArtikelSampah.css'
+import './css/artikelSampah.css'
 const ArtikelSampah = () => {
   return (
     <main>
