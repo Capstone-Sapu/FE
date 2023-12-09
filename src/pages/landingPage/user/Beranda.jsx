@@ -6,11 +6,11 @@ import { BsCashCoin } from "react-icons/bs";
 import { LuPalmtree } from "react-icons/lu";
 import { MdOutlineProductionQuantityLimits } from "react-icons/md";
 import ArtikelSampah from "./components/ArtikelSampah";
-import CardItem from "./components/cardItem";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
+import CardItem from "./components/CardItems";
 
 
 const Beranda = () => {
