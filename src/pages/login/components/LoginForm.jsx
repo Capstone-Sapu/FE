@@ -29,6 +29,7 @@ const LoginForm = () => {
       const decode = jwtDecode (response.data.access_token);
       if (decode.role === "admin") {
         navigate ("/customer");
+        localStorage.setItem("userData", JSON.stringify(decode));
       }else  {
         navigate("/beranda");
         localStorage.setItem("userData", JSON.stringify(decode));

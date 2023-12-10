@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from "react";
 import { InputElement } from "../../../../components/elements/input";
 import { ButtonElement } from "../../../../components/elements/button";
@@ -8,14 +9,12 @@ import "react-loading-skeleton/dist/skeleton.css";
 import Modal from "../../../../components/elements/modal/Modal";
 import { toast } from "react-toastify";
 import moment from "moment";
-import jwtDecode from "jwt-decode";
 
 const FormJual = () => {
   const [modalShow, setModalShow] = useState(false);
   const [loading, setLoading] = useState(true);
   const { idBarang } = useParams();
   const navigate = useNavigate();
-  const [user, setUser] = useState ([]);
   const [formData, setFormData] = useState({
     nama_lengkap: "",
     nama_barang: "",
@@ -25,49 +24,28 @@ const FormJual = () => {
     image: "",
     jumlah: undefined,
     date: moment().format("YYYY-MM-DD"),
+    userId: 0,
   });
-  const refreshToken = async () => {
-    try {
-      const response = await axios.get(`${import.meta.env.VITE_API_URL}/token`, {
-        withCredentials: true,
-      });
-      const decoded = jwtDecode(response.data.access_token);
-      setUser({
-        name: decoded.name,
-        email: decoded.email, 
-        exp: decoded.exp,
-        userId: decoded.userId,
-        balance: decoded.balance,
-        role: decoded.role,
-      });
-    } catch (error) {
-      if (error.response) {
-        console.log(error);
-      }
-    }
-  };
-  useEffect (() => {
-    refreshToken ();
-  }, [])
+
   const dataToPost = {
     id_item: idBarang,
-    id_user: user.userId,
+    id_user: formData.userId,
     address: formData.alamat,
     noHp: formData.nomor_hp,
     quantity: formData.jumlah,
     date: formData.date,
   };
-  const saveTransaksi = async (e) =>{
+  const saveTransaksi = async (e) => {
     e.preventDefault();
     try {
       await axios.post(`${import.meta.env.VITE_API_URL}/transaksi`, dataToPost);
-      toast.success ("Team akan Menjemput Sampah ke lokasi 1 x 24 Jam");
-      setModalShow (!modalShow);
+      toast.success("Team akan Menjemput Sampah ke lokasi 1 x 24 Jam");
+      setModalShow(!modalShow);
     } catch (error) {
-      toast.error (error.response.data.msg)
+      toast.error(error.response.data.msg);
       setLoading(false);
     }
-  }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -92,6 +70,19 @@ const FormJual = () => {
     fetchData();
   }, [idBarang]);
 
+  useEffect(() => {
+    if (!localStorage.getItem("access_token")) {
+      navigate("/");
+    } else {
+      const user = JSON.parse(localStorage.getItem("userData"));
+     setFormData ({
+      ...formData,
+      nama_lengkap: user.name,
+      userId: user.userId
+     })
+    }
+  }, []);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -109,7 +100,7 @@ const FormJual = () => {
     } else {
       setModalShow(true);
     }
-  }; 
+  };
   return (
     <>
       <div className="d-flex flex-column container bg-white p-4">
@@ -136,9 +127,7 @@ const FormJual = () => {
               type="text"
               name="nama_lengkap"
               id="nama_lengkap"
-              value={
-                user.name === undefined ? "" : user.name
-              }
+              value={formData.nama_lengkap === undefined ? "" : formData.nama_lengkap}
               className="mb-2"
               disabled
             />
@@ -178,7 +167,11 @@ const FormJual = () => {
               type="text"
               name="harga"
               id="harga"
-              value={formData.harga === undefined ? "" : formData.harga.toLocaleString("id-ID")}
+              value={
+                formData.harga === undefined
+                  ? ""
+                  : formData.harga.toLocaleString("id-ID")
+              }
               className="mb-2"
               disabled
             />
@@ -197,7 +190,8 @@ const FormJual = () => {
               className="text-end mt-5"
               style={{ fontWeight: 500, fontFamily: "inherit" }}
             >
-              Total: Rp.{(formData.harga * formData.jumlah).toLocaleString('id-ID')}
+              Total: Rp.
+              {(formData.harga * formData.jumlah).toLocaleString("id-ID")}
             </div>
 
             <ButtonElement
@@ -226,9 +220,7 @@ const FormJual = () => {
             >
               <div className="mt-2" style={{ fontSize: "1.2rem" }}>
                 <strong>Nama Penjual:</strong>{" "}
-                {user.name === undefined
-                  ? ""
-                  : user.name}
+                {formData.nama_lengkap === undefined ? "" : formData.nama_lengkap}
               </div>
               <div className="mt-2" style={{ fontSize: "1.2rem" }}>
                 <strong>Nama Barang:</strong>{" "}
@@ -274,12 +266,12 @@ const FormJual = () => {
                   Batal
                 </ButtonElement>
                 <form onSubmit={saveTransaksi}>
-                <ButtonElement
-                  type="submit"
-                  className="btn bg-success text-white"
-                >
-                  Kirim
-                </ButtonElement>
+                  <ButtonElement
+                    type="submit"
+                    className="btn bg-success text-white"
+                  >
+                    Kirim
+                  </ButtonElement>
                 </form>
               </div>
             </Modal>

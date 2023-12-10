@@ -81,7 +81,7 @@ const NavbarComponent = () => {
                   </div>
                   <p>{user.name ? user.name : ""}</p>
                   <p>{user.email ? user.email : ""}</p>
-                  <p>Total Saldo: Rp. {user.balance ? (user.balance).toLocaleString("id-ID"): ""}</p>
+                  <p>Total Saldo: Rp. {user.balance ? (user.balance).toLocaleString("id-ID"): 0}</p>
                   <ButtonElement
                     className="btn btn-danger logout-btn"
                     handleClick={logOut}

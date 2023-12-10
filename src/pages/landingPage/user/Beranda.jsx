@@ -7,8 +7,6 @@ import { LuPalmtree } from "react-icons/lu";
 import { MdOutlineProductionQuantityLimits } from "react-icons/md";
 import ArtikelSampah from "./components/ArtikelSampah";
 import { useEffect, useState } from "react";
-import axios from "axios";
-import jwtDecode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 import CardItem from "./components/CardItems";
 
@@ -30,37 +28,28 @@ const Beranda = () => {
     role: "",
   });
 
+  
+
   useEffect(() => {
     if (!localStorage.getItem('access_token')) {
       navigate ("/")
     }else {
-      refreshToken();
+      const data = JSON.parse (localStorage.getItem ("userData"));
+      setUser ({
+    balance: data.balance,
+    email: data.email,
+    exp: data.exp,
+    name: data.name,
+    userId: data.userId,
+    role: data.role,
+      })
     }
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-
  
 
-  const refreshToken = async () => {
-    try {
-      const response = await axios.get(`${import.meta.env.VITE_API_URL}/token`);
-      const decoded = jwtDecode(response.data.access_token);
-      setUser({
-        name: decoded.name,
-        email: decoded.email, 
-        exp: decoded.exp,
-        userId: decoded.userId,
-        balance: decoded.balance,
-        role: decoded.role,
-      });
-    } catch (error) {
-      if (error.response) {
-        console.log(error);
-      }
-    }
-  };
 
   return (
     <>

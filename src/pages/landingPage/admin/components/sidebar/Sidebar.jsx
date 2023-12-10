@@ -6,7 +6,7 @@ import { GiShoppingBag } from "react-icons/gi";
 import "../css/sidebar.css"
 import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect,  } from "react";
 const Sidebar = () => {
   const navigate = useNavigate ();
   const logOut = async () => {
@@ -19,7 +19,9 @@ const Sidebar = () => {
     }
   }
   useEffect(() => {
-    if (!localStorage.getItem('access_token')) {
+    const data =  JSON.parse (localStorage.getItem ("userData")) || "";
+    const admin = data.role
+    if (!localStorage.getItem('access_token') || admin !== "admin") {
       navigate ("/")
     }
   }, [navigate])
