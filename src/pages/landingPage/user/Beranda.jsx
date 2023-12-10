@@ -46,7 +46,7 @@ const Beranda = () => {
   const refreshToken = async () => {
     try {
       const response = await axios.get(`${import.meta.env.VITE_API_URL}/token`, {
-        withCredentials: 'include',
+        withCredentials: true,
       });
       const decoded = jwtDecode(response.data.access_token);
       setUser({
@@ -67,7 +67,7 @@ const Beranda = () => {
 
   return (
     <>
-      <NavbarComponent user={user.name} saldo={user.balance} email={user.email} />
+      <NavbarComponent/>
       <div className="container-fluid mt-5">
         <div className="d-flex gap-4 align-items-center">
           <img

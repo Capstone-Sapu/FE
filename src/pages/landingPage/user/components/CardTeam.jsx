@@ -4,7 +4,7 @@ import CardProfile from "./CardProfile";
 const CardTeam = () => {
   const teamMember = [
     {
-      nama: 'Adel',
+      nama: 'Delphia Aryana',
       role: "Pengembang Back-end",
       sumber: 'adel',
       github: 'https://github.com/Sugiannoor',
@@ -12,7 +12,7 @@ const CardTeam = () => {
       linkedIn: 'https://www.linkedin.com/in/akhmadsugiannoor/'
     }, 
     {
-      nama: 'iif',
+      nama: 'iif Alifah',
       role: "Pengembang Back-end",
       sumber: 'iif',
       github: 'https://github.com/Sugiannoor',
@@ -20,19 +20,19 @@ const CardTeam = () => {
       linkedIn: 'https://www.linkedin.com/in/akhmadsugiannoor/'
     },
     {
-      nama: 'Akhmad Sugiannoor',
+      nama: 'Muhammad Yudya Ananda Hasibuan',
       role: "Front End Developer",
-      sumber: 'sugi',
+      sumber: 'yudha',
       github: 'https://github.com/Sugiannoor',
       instagram: 'https://www.instagram.com/sugiannoor22/',
       linkedIn: 'https://www.linkedin.com/in/akhmadsugiannoor/'
     },
     {
-      nama: 'Akhmad Sugiannoor',
-      role: "Front End Developer",
-      sumber: 'sugi',
+      nama: 'Eriska Hamida Sihotang',
+      role: "UI/UX",
+      sumber: 'eriska',
       github: 'https://github.com/Sugiannoor',
-      instagram: 'https://www.instagram.com/sugiannoor22/',
+      instagram: 'https://instagram.com/eriskasihotang89?igshid=MzMyNGUyNmU2YQ==',
       linkedIn: 'https://www.linkedin.com/in/akhmadsugiannoor/'
     },
     {
