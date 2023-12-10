@@ -8,6 +8,13 @@ h1.header-beranda {
     color:#116530;
 
 }
+div.col-12.welcome p{
+    font-size: 2rem;
+}
+div.col-12.welcome span{
+    color: #116530;
+    font-weight: 700;
+}
 div.icon-fitur-beranda {
     height: 45px;
     width: 50px;
@@ -35,6 +42,14 @@ div.deskripsi-fitur-beranda {
 }
 div.card-fitur.d-flex {
     flex-direction: column;
+}
+div.col-12.welcome p{
+    font-size: 1.6rem;
+    text-align: center;
+}
+div.col-12.welcome span{
+    color: #116530;
+    font-weight: 700;
 }
 
 }

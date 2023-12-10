@@ -4,17 +4,17 @@ import CardProfile from "./CardProfile";
 const CardTeam = () => {
   const teamMember = [
     {
-      nama: 'Akhmad Sugiannoor',
-      role: "Front End Developer",
-      sumber: 'sugi',
+      nama: 'Adel',
+      role: "Pengembang Back-end",
+      sumber: 'adel',
       github: 'https://github.com/Sugiannoor',
       instagram: 'https://www.instagram.com/sugiannoor22/',
       linkedIn: 'https://www.linkedin.com/in/akhmadsugiannoor/'
     }, 
     {
-      nama: 'Akhmad Sugiannoor',
-      role: "Front End Developer",
-      sumber: 'sugi',
+      nama: 'iif',
+      role: "Pengembang Back-end",
+      sumber: 'iif',
       github: 'https://github.com/Sugiannoor',
       instagram: 'https://www.instagram.com/sugiannoor22/',
       linkedIn: 'https://www.linkedin.com/in/akhmadsugiannoor/'

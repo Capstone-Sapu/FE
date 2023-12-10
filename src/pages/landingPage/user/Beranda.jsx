@@ -89,6 +89,15 @@ const Beranda = () => {
         </div>
       </div>
       <div className="container-fluid bg-white mt-5 py-4">
+      <div className="row align-items-center">
+        <div className="col-lg-6 col-12 welcome p-4 text-center">
+          <p>Hello <span>{user.name}</span></p>
+          <p>Total Pendapatan kamu <span>Rp. {(user.balance).toLocaleString("id-ID")}</span> di website ini</p>
+        </div>
+        <div className="col-lg-6 col-12 text-center">
+          <img src="/ilustrasi.svg" alt="gambar save earth" height={300}/>
+        </div>
+      </div>
         <h2 className="section-fitur text-center">Fitur</h2>
         <hr className="line-header" />
         <div className="card-fitur d-flex gap-4 justify-content-center">
@@ -124,7 +133,7 @@ const Beranda = () => {
           </div>
         </div>
         <ArtikelSampah />
-        <CardItem />
+        <CardItem/>
       </div>
       <FooterComponent />
     </>

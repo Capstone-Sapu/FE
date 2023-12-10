@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { GiHamburgerMenu } from "react-icons/gi";
 import { RxAvatar } from "react-icons/rx";
 import { FaTimes } from "react-icons/fa";
@@ -7,8 +8,7 @@ import { useEffect, useState } from "react";
 import { ButtonElement } from "../elements/button";
 import axios from "axios";
 
-const NavbarComponent = () => {
-  // const userData = JSON.parse(localStorage.getItem("userData"));
+const NavbarComponent = (props) => {
   const [showProfile, setShowProfile] = useState(false);
   const navigate = useNavigate();
 
@@ -78,9 +78,9 @@ const NavbarComponent = () => {
                   <div className="text-end" onClick={handleClick}>
                     <FaTimes />
                   </div>
-                  {/* <p>{userData.name ? userData.name : ""}</p>
-                  <p>{userData.email ? userData.email : ""}</p>
-                  <p>Total Saldo: Rp. {userData.balance ? (userData.balance).toLocaleString("id-ID"): ""}</p> */}
+                  <p>{props.user ? props.user : ""}</p>
+                  <p>{props.email ? props.email : ""}</p>
+                  <p>Total Saldo: Rp. {props.saldo ? (props.saldo).toLocaleString("id-ID"): ""}</p>
                   <ButtonElement
                     className="btn btn-danger logout-btn"
                     handleClick={logOut}

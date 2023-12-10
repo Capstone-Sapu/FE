@@ -8,12 +8,14 @@ import "react-loading-skeleton/dist/skeleton.css";
 import Modal from "../../../../components/elements/modal/Modal";
 import { toast } from "react-toastify";
 import moment from "moment";
+import jwtDecode from "jwt-decode";
 
 const FormJual = () => {
   const [modalShow, setModalShow] = useState(false);
   const [loading, setLoading] = useState(true);
   const { idBarang } = useParams();
   const navigate = useNavigate();
+  const [user, setUser] = useState ([]);
   const [formData, setFormData] = useState({
     nama_lengkap: "",
     nama_barang: "",
@@ -24,10 +26,32 @@ const FormJual = () => {
     jumlah: undefined,
     date: moment().format("YYYY-MM-DD"),
   });
-  const userData = JSON.parse(localStorage.getItem("userData")); 
+  const refreshToken = async () => {
+    try {
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/token`, {
+        withCredentials: true,
+      });
+      const decoded = jwtDecode(response.data.access_token);
+      setUser({
+        name: decoded.name,
+        email: decoded.email, 
+        exp: decoded.exp,
+        userId: decoded.userId,
+        balance: decoded.balance,
+        role: decoded.role,
+      });
+    } catch (error) {
+      if (error.response) {
+        console.log(error);
+      }
+    }
+  };
+  useEffect (() => {
+    refreshToken ();
+  }, [])
   const dataToPost = {
     id_item: idBarang,
-    id_user: userData.userId,
+    id_user: user.userId,
     address: formData.alamat,
     noHp: formData.nomor_hp,
     quantity: formData.jumlah,
@@ -113,7 +137,7 @@ const FormJual = () => {
               name="nama_lengkap"
               id="nama_lengkap"
               value={
-                userData.name === undefined ? "" : userData.name
+                user.name === undefined ? "" : user.name
               }
               className="mb-2"
               disabled
@@ -202,9 +226,9 @@ const FormJual = () => {
             >
               <div className="mt-2" style={{ fontSize: "1.2rem" }}>
                 <strong>Nama Penjual:</strong>{" "}
-                {userData.name === undefined
+                {user.name === undefined
                   ? ""
-                  : userData.name}
+                  : user.name}
               </div>
               <div className="mt-2" style={{ fontSize: "1.2rem" }}>
                 <strong>Nama Barang:</strong>{" "}
