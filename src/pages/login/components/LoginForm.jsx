@@ -31,6 +31,7 @@ const LoginForm = () => {
         navigate ("/customer");
       }else  {
         navigate("/beranda");
+        localStorage.setItem("userData", JSON.stringify(decode));
       }
     } catch (error) {
       if (error.response) {

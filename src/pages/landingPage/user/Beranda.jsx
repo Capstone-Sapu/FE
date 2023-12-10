@@ -55,7 +55,6 @@ const Beranda = () => {
         balance: decoded.balance,
         role: decoded.role,
       });
-      localStorage.setItem("userData", JSON.stringify(decoded));
     } catch (error) {
       if (error.response) {
         console.log(error);
