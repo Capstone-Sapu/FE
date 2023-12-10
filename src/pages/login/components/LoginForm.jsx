@@ -23,7 +23,6 @@ const LoginForm = () => {
         email: email,
         password: password
       }, {
-    withCredentials: true
   });
       setLoading (false);
       localStorage.setItem("access_token", response.data.access_token);

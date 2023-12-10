@@ -45,9 +45,7 @@ const Beranda = () => {
 
   const refreshToken = async () => {
     try {
-      const response = await axios.get(`${import.meta.env.VITE_API_URL}/token`, {
-        withCredentials: true,
-      });
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/token`);
       const decoded = jwtDecode(response.data.access_token);
       setUser({
         name: decoded.name,
