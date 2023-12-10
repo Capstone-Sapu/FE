@@ -46,7 +46,7 @@ const Beranda = () => {
   const refreshToken = async () => {
     try {
       const response = await axios.get(`${import.meta.env.VITE_API_URL}/token`, {
-        withCredentials: true,
+        withCredentials: 'include',
       });
       const decoded = jwtDecode(response.data.access_token);
       setUser({
@@ -57,6 +57,7 @@ const Beranda = () => {
         balance: decoded.balance,
         role: decoded.role,
       });
+      localStorage.setItem("userData", JSON.stringify(decoded));
     } catch (error) {
       if (error.response) {
         console.log(error);
