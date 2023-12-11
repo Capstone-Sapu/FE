@@ -10,12 +10,15 @@ import { ButtonElement } from "../../../components/elements/button";
 import { InputElement } from "../../../components/elements/input";
 import axios from "axios";
 import { toast } from "react-toastify";
+import Search from "../../../components/elements/search/Search";
 const User = () => {
   const [selectedId, setSelectedId] = useState();
   const [showModalEdit, setShowModalEdit] = useState();
   const [showModalDelete, setShowModalDelete] = useState(false);
   const [loading, setLoading] = useState(false);
   const [getUser, setGetUser] = useState([]);
+  const [searchValue, setSearchValue] = useState ("");
+  const [searchResults, setSearchResults] = useState([]);
   const [user, setUser] = useState({
     name: "",
     email: "",
@@ -109,9 +112,12 @@ const User = () => {
   };
   const fetchData = async () => {
     try {
-      const response = await axios.get(`${import.meta.env.VITE_API_URL}/users`);
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/users`, {
+        params: {search: searchValue},
+      });
       const usersData = response.data;
       setGetUser(usersData);
+      setSearchResults(usersData);
       setLoading(false);
     } catch (error) {
       console.error("Error fetching user data:", error);
@@ -120,13 +126,16 @@ const User = () => {
   
 useEffect(() => {
     fetchData();
-  }, []);    
+  }, [searchValue]);    
   return (
     <>
       <Sidebar />
       <main className="main-content-admin">
+      <div className= "d-flex justify-content-end mb-4">
+          <Search searchValue={searchValue} setSearchValue={setSearchValue} />
+        </div>
         <div className="table-responsive">
-          <DataTable value={getUser} paginator rows={10}>
+          <DataTable value={searchValue ? searchResults : getUser} paginator rows={10}>
             {columns.map((col, index) => (
               <Column key={index} field={col.field} header={col.header} sortable style={{ width: '25%' }} />
             ))}
