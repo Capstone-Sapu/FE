@@ -9,7 +9,7 @@ const FooterComponent = () => {
       <li className="nav-item"><a href="#" className="nav-link px-2 text-white"><FaInstagramSquare size={40} style={{cursor: 'pointer'}} /></a></li>
       <li className="nav-item"><a href="#" className="nav-link px-2 text-white"><FaWhatsappSquare size={40} style={{cursor: 'pointer'}} /></a></li>
     </ul>
-    <p className="text-center" style={{fontSize: '1rem', fontWeight: '400', color: 'white'}}>Copyright © SAPU | SIB Cycle 5 2023 - Dicoding Academy</p>
+    <p className="text-center" style={{fontSize: '0.8rem', fontWeight: '400', color: 'white'}}>Copyright © SAPU | SIB Cycle 5 2023 - Dicoding Academy</p>
   </footer>
   );
 }

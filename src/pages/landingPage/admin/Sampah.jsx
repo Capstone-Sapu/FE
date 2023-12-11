@@ -24,6 +24,7 @@ const Sampah = () => {
   const [preview, setPreview] = useState();
   const [sampahId, setSampahId] = useState();
   const [sampah, setSampah] = useState([]);
+  const [loading, setLoading] = useState (false)
   
   const handleEdit = (id) => {
     setModalEditShow(!modalEditShow);
@@ -49,6 +50,7 @@ const Sampah = () => {
   };
   const saveProduct = async (e) => {
     e.preventDefault();
+    setLoading (!loading);
     const formData = new FormData();
 
     // Menambahkan data ke objek FormData
@@ -64,28 +66,35 @@ const Sampah = () => {
         }
       });
       toast.success ("Sampah ditambahkan")
+      setLoading (!loading);
       fetchData();
       setModalAddShow (!modalAddShow);
     } catch (error) {
+      setLoading (!loading);
         toast.error (error.response.data.msg);
     }
     
   };
   const deleteData = async (e) => {
     e.preventDefault();
+    setLoading (!loading);
     try {
       await axios.delete (`${import.meta.env.VITE_API_URL}/items/${sampahId}`);
       toast.success ("Data Berhasil di hapus");
+      setLoading (!loading);
       fetchData ();
       setModalDeleteShow (!modalDeleteShow);
     } catch (error) {
      
       if (error.response && error.response.data) {
         toast.error(error.response.data.msg);
+      setLoading (!loading);
       } else if (error.message) {
         toast.error(error.message);
+      setLoading (!loading);
       } else {
         toast.error("Terjadi kesalahan server");
+      setLoading (!loading);
       }
     }
   }
@@ -142,6 +151,7 @@ const Sampah = () => {
               type="submit"
               className="btn btn-success mb-3"
               handleClick={handleAdd}
+              isLoading={loading}
             >
               Tambah Sampah
             </ButtonElement>
@@ -175,7 +185,7 @@ const Sampah = () => {
             <p>Yakin Untuk Menghapus Data ini ?</p>
             <div className="text-end">
               <form onSubmit={deleteData}>
-              <ButtonElement type="submit" className="btn bg-danger text-white">
+              <ButtonElement type="submit" className="btn bg-danger text-white" isLoading={loading}>
                 Hapus
               </ButtonElement>
               </form>

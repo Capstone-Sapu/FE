@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Sidebar from "./components/sidebar/Sidebar";
 import { FaTimesCircle, FaCheckCircle } from "react-icons/fa";
+import { MdDangerous } from "react-icons/md";
 import Modal from "../../../components/elements/modal/Modal";
 import { ButtonElement } from "../../../components/elements/button";
 import { DataTable } from 'primereact/datatable';
@@ -15,7 +16,7 @@ const Transaksi = () => {
   const [searchValue, setSearchValue] = useState ();
   const [showModalDelete, setShowModalDelete] = useState(false);
   const [transaksi, setTransaksi] = useState ([]);
-
+  const [loading, setLoading] = useState (false)
   useEffect(() => {
 fetchData();
   }, []);
@@ -36,18 +37,23 @@ fetchData();
   };
   
   const updateBalance = async () => {
+    setLoading (!loading)
     try {
     await axios.patch (`${import.meta.env.VITE_API_URL}/transaksi/balance/${selectedId}`);
     toast.success("Saldo User Sudah Terupdate")
     setShowModal (!showModal);
+    setLoading (!loading)
     fetchData();
   } catch (error) {
     if (error.response && error.response.data) {
       toast.error(error.response.data.msg);
+      setLoading (!loading)
     } else if (error.message) {
       toast.error(error.message);
+      setLoading (!loading)
     } else {
       toast.error("Terjadi kesalahan server");
+      setLoading (!loading)
     }
   }
   }
@@ -58,18 +64,23 @@ fetchData();
   };
 
   const deleteTransaksi = async () => {
+    setLoading (!loading);
     try {
       await axios.delete (`${import.meta.env.VITE_API_URL}/transaksi/${selectedIdDelete}`);
       toast.success("Data Berhasil Terhapus")
       setShowModalDelete (!showModalDelete);
+      setLoading (!loading)
       fetchData();
     } catch (error) {
       if (error.response && error.response.data) {
         toast.error(error.response.data.msg);
+        setLoading (!loading)
       } else if (error.message) {
         toast.error(error.message);
+        setLoading (!loading)
       } else {
         toast.error("Terjadi kesalahan server");
+        setLoading (!loading)
       }
     }
   }
@@ -141,15 +152,17 @@ fetchData();
             closeButton={true}
             size={'md'}
           >
-            <p>Transaksi Dengan ID: {selectedId}</p>
+            <p className="text-success" style={{fontWeight: '700'}}><FaCheckCircle color="green" size={30}/> Pastikan Sampah Sudah Diterima</p>
+            <p className="text-success" style={{fontWeight: '700'}}><FaCheckCircle color="green" size={30}/> Mengupdate Saldo User</p>
             <div className="text-end">
 
             <ButtonElement
                   type="submit"
                   handleClick={updateBalance}
                   className="btn bg-success text-white"
+                  isLoading={loading}
                   >
-                  Kirim
+                  Selesai
                 </ButtonElement>
                   </div>
           </Modal>
@@ -162,7 +175,8 @@ fetchData();
             closeButton={true}
             size={'md'}
           >
-            <p>Transaksi Dengan ID: {selectedIdDelete}</p>
+            <p className="text-danger" style={{fontWeight: '700'}}><MdDangerous color="red" size={30}/> Pastikan Sudah Menghubungi Customer</p>
+            <p className="text-danger" style={{fontWeight: '700'}}><MdDangerous color="red" size={30}/> Data akan terhapus Permanent</p>
             <div className="text-end">
 
             <ButtonElement

@@ -7,6 +7,7 @@ import { ButtonElement } from "../../../../../components/elements/button";
 import { toast } from "react-toastify";
 
 const SampahEdit = (props) => {
+  const [loading, setLoading] = useState (false);
   const [sampah, setSampah] = useState({
     title: "",
     description: "",
@@ -63,6 +64,7 @@ const SampahEdit = (props) => {
   };
 
   const updateProduct = async (e) => {
+    setLoading (!loading);
     e.preventDefault ();
     const formData = new FormData();
 
@@ -79,10 +81,12 @@ const SampahEdit = (props) => {
         }
       });
       toast.success ("Data Berhasil di Edit")
+      setLoading (!loading);
       props.setModalEditShow (!props.modalEditShow)
       fetchData();
     } catch (error) {
       toast.error (error.response.data.msg)
+      setLoading (!loading);
     }
     
   };
@@ -156,7 +160,7 @@ const SampahEdit = (props) => {
           <ButtonElement
             type="submit"
             className="btn btn-success"
-            isLoading={false}
+            isLoading={loading}
           >
             Simpan
           </ButtonElement>

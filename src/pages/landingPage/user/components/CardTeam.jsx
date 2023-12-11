@@ -5,35 +5,35 @@ const CardTeam = () => {
   const teamMember = [
     {
       nama: 'Delphia Aryana',
-      role: "Pengembang Back-end",
+      role: "Back End Developer",
       sumber: 'adel',
-      github: 'https://github.com/Sugiannoor',
-      instagram: 'https://www.instagram.com/sugiannoor22/',
-      linkedIn: 'https://www.linkedin.com/in/akhmadsugiannoor/'
+      github: '#',
+      instagram: '#',
+      linkedIn: '#'
     }, 
     {
       nama: 'iif Alifah',
-      role: "Pengembang Back-end",
+      role: "Back End Developer",
       sumber: 'iif',
-      github: 'https://github.com/Sugiannoor',
-      instagram: 'https://www.instagram.com/sugiannoor22/',
-      linkedIn: 'https://www.linkedin.com/in/akhmadsugiannoor/'
+      github: '#',
+      instagram: '#',
+      linkedIn: '#'
     },
     {
-      nama: 'Muhammad Yudya Ananda Hasibuan',
+      nama: 'M. Yudya Ananda Hasibuan',
       role: "Front End Developer",
       sumber: 'yudha',
-      github: 'https://github.com/Sugiannoor',
-      instagram: 'https://www.instagram.com/sugiannoor22/',
-      linkedIn: 'https://www.linkedin.com/in/akhmadsugiannoor/'
+      github: '#',
+      instagram: '#',
+      linkedIn: '#'
     },
     {
       nama: 'Eriska Hamida Sihotang',
       role: "UI/UX",
       sumber: 'eriska',
-      github: 'https://github.com/Sugiannoor',
+      github: '#',
       instagram: 'https://instagram.com/eriskasihotang89?igshid=MzMyNGUyNmU2YQ==',
-      linkedIn: 'https://www.linkedin.com/in/akhmadsugiannoor/'
+      linkedIn: '#'
     },
     {
       nama: 'Akhmad Sugiannoor',

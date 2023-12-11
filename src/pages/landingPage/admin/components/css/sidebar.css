@@ -1,20 +1,20 @@
 svg.icon-sidebar {
-    margin-right:10px ;
     height: 26px;
     width: 26px;
 }
 div.navigasi {
-    height: 25px;
-    margin: 15px;
-    padding: 2px;
-    font-weight: 500;
     cursor: pointer;
     color: white;
+}
+.sidebar-admin ul a {
+    margin-top: 30px;
 }
 div.sidebar-admin {
     border-radius: 10px;
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
     position: fixed;
+    width: 50px;
+    overflow: hidden;
     top: 0;
     bottom: 0;
     background-color: #116530 !important;
@@ -25,12 +25,47 @@ hr.hr-sidebar {
     opacity: 1;
     border: none;
 }
-
 .sidebar-admin ul a.active {
     background-color: #FFCC1D;
     border-radius: 10px;
 
 }
-.sidebar-admin div.navigasi:hover  {
+/* OPEN */
+svg.icon-sidebar.open {
+    margin-right:10px ;
+    height: 26px;
+    width: 26px;
+}
+div.navigasi.open {
+    height: 25px;
+    margin: 15px;
+    padding: 2px;
+    font-weight: 500;
+    cursor: pointer;
+    color: white;
+}
+div.sidebar-admin.open{
+    border-radius: 10px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.2);
+    width: 280px;
+    background-color: #116530 !important;
+    z-index: 1;
+}
+.sidebar-admin.open ul a {
+    margin-top: 0;
+}
+hr.hr-sidebar.open {
+    background-color: white;
+    height: 2px;
+    opacity: 1;
+    border: none;
+}
+
+.sidebar-admin.open ul a.active {
+    background-color: #FFCC1D;
+    border-radius: 10px;
+
+}
+.sidebar-admin div.navigasi.open:hover  {
     font-weight: 700;
 }

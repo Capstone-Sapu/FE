@@ -154,7 +154,7 @@ const FormJual = () => {
             />
             <InputElement
               label="No Handphone *"
-              type="text"
+              type="number"
               name="nomor_hp"
               id="nomor_hp"
               value={formData.nomor_hp === undefined ? "" : formData.nomor_hp}
