@@ -7,7 +7,7 @@ const Contact = () => {
   return (
     <div>
       <NavbarComponent/>
-      <div className="container p-4">
+      <div className="container-fluid bg-white p-4">
       <CardContact/>
       </div>
       <FooterComponent/>

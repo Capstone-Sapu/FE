@@ -1,59 +1,64 @@
-import {LiaMapSolid} from 'react-icons/lia'
-import './css/cardContact.css'
-import { AiOutlineWhatsApp } from 'react-icons/ai'
-import GoogleMap from './GoogleMaps'
+import { LiaInstagram, LiaMapSolid } from "react-icons/lia";
+import "./css/cardContact.css";
+import GoogleMap from "./GoogleMaps";
+import { FaWhatsapp} from "react-icons/fa";
+import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 const CardContact = () => {
+  const [user, setUser] = useState({
+    balance: 0,
+    email: "",
+    exp: 0,
+    name: "",
+    userId: 0,
+    role: "",
+  });
+  useEffect (()=> {
+    const data = JSON.parse (localStorage.getItem ("userData"));
+      setUser ({
+    balance: data.balance,
+    email: data.email,
+    exp: data.exp,
+    name: data.name,
+    userId: data.userId,
+    role: data.role,
+      })
+  }, [])
+  
+    
   return (
     <div>
-     <h4 className='text-center header-contact'>Contact</h4>
-     <hr className='line-header' />
-     <div className="row">
-        <div className="col-6">
-            <div className="card card-maps position-relatif">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" className="position-absolute">
-              <path
-                fill="#116530"
-                fillOpacity="0.4"
-                d="M0,96L48,112C96,128,192,160,288,192C384,224,480,256,576,277.3C672,299,768,309,864,277.3C960,245,1056,171,1152,154.7C1248,139,1344,181,1392,202.7L1440,224L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"
-              ></path>
-            </svg>
-                <div className="card-body card-body-maps d-flex flex-column">
-                    <span className="icon-maps">
-                    <LiaMapSolid size={40} color='white'/>
-                    </span>
-                    <p className='maps-header mt-2'>Lokasi :</p>
-                    <p className='maps-deskripsi'>Jl. Kampung Durian Runtuh Rt.01 No.25</p>
-                </div>
-            </div>
+      <h4 className="text-center header-contact">
+        Contact
+        <span>
+          <LiaMapSolid size={40} color="green" />
+        </span>
+      </h4>
+      <hr className="line-header" />
+      <div className="row contact">
+        <div className="col-12 col-lg-6">
+          <GoogleMap />
         </div>
-        <div className="col-6">
-        <div className="card card-maps position-relatif">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" className="position-absolute">
-              <path
-                fill="#116530"
-                fillOpacity="0.4"
-                d="M0,96L48,112C96,128,192,160,288,192C384,224,480,256,576,277.3C672,299,768,309,864,277.3C960,245,1056,171,1152,154.7C1248,139,1344,181,1392,202.7L1440,224L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"
-              ></path>
-            </svg>
-                <div className="card-body card-body-maps d-flex flex-column">
-                    <span className="icon-maps">
-                    <LiaMapSolid size={40} color='white'/>
-                    </span>
-                    <p className='maps-header mt-2'>Kontak Kami :</p>
-                    <span className='maps-deskripsi'><AiOutlineWhatsApp size={20}/> +62-324-1234-5231                    
-                    </span>
-                </div>
-            </div>
-        </div>
-        
-     </div>
-        <div className="row mt-4">
-            <div className="col-12">
-                <GoogleMap/>
-            </div>
+        <div className="col-12 col-lg-6 d-flex flex-column justify-content-center p-3">
+          <div className="title-contact">
+            Hello <span>{user.name} </span>Memiliki <span>Keluhan? </span>
+            Segera hubungi kami!
+          </div>
+          <div className="d-flex gap-3">
+            <Link to={"https://www.google.com/maps/place/Museum+Lambung+Mangkurat/@-3.442821,114.838412,14z/data=!4m6!3m5!1s0x2de6810dd27cdb3d:0xf5c19d6b3bc3d1c0!8m2!3d-3.4428206!4d114.8384124!16s%2Fm%2F0b6g29z?hl=id&entry=ttu"} className="icon-maps" target="_blank">
+              <LiaMapSolid size={40} color="white" style={{cursor: 'pointer'}} />
+            </Link>
+            <Link className="icon-maps">
+              <FaWhatsapp size={40} color="white" style={{cursor: 'pointer'}} />
+            </Link>
+            <Link className="icon-maps" style={{cursor: 'pointer'}}>
+              <LiaInstagram size={40} color="white" />
+            </Link>
+          </div>
         </div>
       </div>
-  )
-}
+    </div>
+  );
+};
 
-export default CardContact
+export default CardContact;

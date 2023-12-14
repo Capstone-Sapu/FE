@@ -1,10 +1,15 @@
-span.icon-maps {
+a.icon-maps {
     background-color: #116530;
     height: 50px;
     padding: 5px;
     width: 50px;
     border-radius: 10px;
 
+}
+a.icon-maps:hover {
+    
+    background-color: #E8E8CC;
+    transition: 0.2s ease-out;
 }
 p.maps-header {
     font-weight: 700;
@@ -18,4 +23,30 @@ h4.header-contact {
     font-weight: 700;
     font-size: 2rem;
 }
+div.title-contact {
+    font-size: 2rem;
+    font-weight: 500;
+}
 
+div.title-contact span {
+    color: #116530;
+    font-weight: 700;
+}
+.row.contact {
+    margin-bottom: 150px;
+
+}
+
+@media (max-width: 768px) {
+    .row.contact {
+        flex-wrap: wrap-reverse;
+        margin-bottom: 0;
+        
+    }
+    div.title-contact {
+        font-size: 1.8rem;
+        font-weight: 500;
+        margin-bottom: 10px;
+    }
+
+}
