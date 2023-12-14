@@ -151,7 +151,6 @@ const Sampah = () => {
               type="submit"
               className="btn btn-success mb-3"
               handleClick={handleAdd}
-              isLoading={loading}
             >
               Tambah Sampah
             </ButtonElement>
@@ -258,7 +257,7 @@ const Sampah = () => {
                 <ButtonElement
                   type="submit"
                   className="btn btn-success"
-                  isLoading={false}
+                  isLoading={loading}
                 >
                   Simpan
                 </ButtonElement>
