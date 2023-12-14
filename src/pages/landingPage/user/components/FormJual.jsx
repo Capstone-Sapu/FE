@@ -26,6 +26,13 @@ const FormJual = () => {
     date: moment().format("YYYY-MM-DD"),
     userId: 0,
   });
+  const [imageError, setImageError] = useState({});
+  const handleImageError = (productId) => {
+    setImageError((prevErrors) => ({
+      ...prevErrors,
+      [productId]: true,
+    }));
+  };
 
   const dataToPost = {
     id_item: idBarang,
@@ -39,7 +46,7 @@ const FormJual = () => {
     e.preventDefault();
     try {
       await axios.post(`${import.meta.env.VITE_API_URL}/transaksi`, dataToPost);
-      toast.success("Team akan Menjemput Sampah ke lokasi 1 x 24 Jam");
+      toast.success("Team akan Menghubungi 1x24 jam");
       setModalShow(!modalShow);
     } catch (error) {
       toast.error(error.response.data.msg);
@@ -75,11 +82,11 @@ const FormJual = () => {
       navigate("/");
     } else {
       const user = JSON.parse(localStorage.getItem("userData"));
-     setFormData ({
-      ...formData,
-      nama_lengkap: user.name,
-      userId: user.userId
-     })
+      setFormData({
+        ...formData,
+        nama_lengkap: user.name,
+        userId: user.userId,
+      });
     }
   }, []);
 
@@ -114,9 +121,14 @@ const FormJual = () => {
           ) : (
             <div className="image-sampah text-center">
               <img
-                src={formData.image === undefined ? "" : formData.image}
+                src={
+                  imageError[idBarang] || !formData.image
+                    ? "/notFound.jpg"
+                    : formData.image
+                }
                 alt="Gambar Sampah"
                 style={{ width: "300px", height: "300px" }}
+                onError={() => handleImageError(idBarang)}
               />
             </div>
           )}
@@ -127,7 +139,9 @@ const FormJual = () => {
               type="text"
               name="nama_lengkap"
               id="nama_lengkap"
-              value={formData.nama_lengkap === undefined ? "" : formData.nama_lengkap}
+              value={
+                formData.nama_lengkap === undefined ? "" : formData.nama_lengkap
+              }
               className="mb-2"
               disabled
             />
@@ -220,7 +234,9 @@ const FormJual = () => {
             >
               <div className="mt-2" style={{ fontSize: "1.2rem" }}>
                 <strong>Nama Penjual:</strong>{" "}
-                {formData.nama_lengkap === undefined ? "" : formData.nama_lengkap}
+                {formData.nama_lengkap === undefined
+                  ? ""
+                  : formData.nama_lengkap}
               </div>
               <div className="mt-2" style={{ fontSize: "1.2rem" }}>
                 <strong>Nama Barang:</strong>{" "}
