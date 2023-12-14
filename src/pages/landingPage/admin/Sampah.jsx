@@ -72,6 +72,8 @@ const Sampah = () => {
     } catch (error) {
       setLoading (!loading);
         toast.error (error.response.data.msg);
+    }finally {
+      setLoading(!loading); 
     }
     
   };
@@ -109,6 +111,7 @@ const Sampah = () => {
     try {
       const response = await axios.get(`${import.meta.env.VITE_API_URL}/items`);
       setSampah(response.data);
+      setLoading (false);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
