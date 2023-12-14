@@ -38,9 +38,9 @@ const NavbarComponent = () => {
       <nav className="navbar navbar-expand-lg">
         <div className="container-fluid">
           <div className="navbar-brand">
-            <img src="/sapu.webp" alt="Sapu Icon" />
+            <img src="/logosapu.png" alt="Sapu Icon" />
 
-            <span>Sapu</span>
+            <span style={{color: '#F9CB00', fontWeight: '700'}}>Sapu</span>
           </div>
           <button
             className="navbar-toggler"
