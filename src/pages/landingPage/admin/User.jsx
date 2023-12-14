@@ -37,12 +37,15 @@ const User = () => {
   };
   const deleteData = async (e) => {
     e.preventDefault();
+    setLoading (!loading)
     try {
       await axios.delete (`${import.meta.env.VITE_API_URL}/users/${selectedId}`)
       toast.success("Data Berhasil Terhapus")
       setShowModalDelete (!showModalDelete);
+      setLoading (!loading)
       fetchData ();
     } catch (error) {
+      setLoading(!loading)
       if (error.response && error.response.data) {
         toast.error(error.response.data.msg);
       } else if (error.message) {
