@@ -85,10 +85,10 @@ const CardItem = () => {
             </div>
           </>
         ) : (
-          // Tampilkan data sebenarnya jika sudah dimuat
-          products.map((product) => (
-            <div className="card card-sampah" key={product.id}>
-              <div className="card-body d-flex gap-2">
+          <div className="row gap-3 justify-content-center">
+          {products.map((product) => (
+            <div className="card card-sampah col-12 col-xl-4 p-3" key={product.id}>
+              <div className="card-body d-flex gap-3">
                 <div className="gambar-sampah-container text-center">
                 <img
                     src={imageError[product.id] ? '/notFound.jpg' : product.url}
@@ -96,21 +96,24 @@ const CardItem = () => {
                     alt={`Gambar Sampah ${product.image}`}
                     onError={() => handleImageError(product.id)}
                   />
+                <p className="mt-3 text-start" style={{ fontWeight: '500', color: '#116530', fontSize: '1.3rem'}}>Rp. {product.price} / Kg</p>
                 </div>
                 <div>
-                  <h5 className="card-title">{product.name}</h5>
-                  <p>{product.description}</p>
-                  <p>Rp. {product.price}</p>
+                  <h5 className="card-title" style={{fontWeight: '700', color: '#116530'}}>{product.name}</h5>
+                  <p style={{textAlign: 'justify', fontWeight: '500', color: '#116530'}}>{product.description}</p>
+                  <div className="text-end">
                   <ButtonElement
-                    className="btn btn-success"
+                    className="btn btn-success text-end"
                     handleClick={() => handleClickJual(product.id)}
                   >
                     Jual
                   </ButtonElement>
+                  </div>
                 </div>
               </div>
             </div>
-          ))
+          ))}
+           </div>
         )}
       </div>
     </div>

@@ -127,7 +127,7 @@ const FormJual = () => {
                     : formData.image
                 }
                 alt="Gambar Sampah"
-                style={{ width: "300px", height: "300px" }}
+                style={{ width: "300px", height: "300px", marginBottom: '10px', borderRadius: '10px' }}
                 onError={() => handleImageError(idBarang)}
               />
             </div>
@@ -174,6 +174,7 @@ const FormJual = () => {
               value={formData.nomor_hp === undefined ? "" : formData.nomor_hp}
               onChange={handleChange}
               className="mb-2"
+              min="0"
               required
             />
             <InputElement
@@ -198,6 +199,7 @@ const FormJual = () => {
               className="mb-2"
               onChange={handleChange}
               placeholder={0}
+              min="1"
               required
             />
             <div

@@ -1,25 +1,29 @@
-
 div.card-sampah {
-    margin-left: 5px;
+  margin-left: 5px;
 }
-.jual-sampah-section img.gambar-sampah{
-    width: 150px;
-    height: 150px;
-    object-fit: cover;
-    object-position: center;
+.jual-sampah-section img.gambar-sampah {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  object-position: center;
 }
 
 @media (max-width: 576px) {
-    .jual-sampah-section div.d-flex {
-        display: flex;
-        flex-direction: column;
-    }
-    .jual-sampah-section div.gambar-sampah-container img.gambar-sampah{
-        width: 150px;
-        height: 150px;
-        margin-bottom: 10px;
-        object-fit: cover;
-        object-position: center;
-        text-align: center;
+  .jual-sampah-section div.d-flex {
+    display: flex;
+    flex-direction: column;
+  }
+  .jual-sampah-section div.gambar-sampah-container img.gambar-sampah {
+    width: 150px;
+    height: 150px;
+    margin-bottom: 10px;
+    object-fit: cover;
+    object-position: center;
+    text-align: center;
+  }
+}
+@media (min-width: 1190px) {
+    div.card.card-sampah {
+        width: 31%;
     }
 }
