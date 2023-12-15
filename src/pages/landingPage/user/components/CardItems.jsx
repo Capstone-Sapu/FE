@@ -7,7 +7,7 @@ import "./css/cardItem.css";
 import { useNavigate } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import { FaCheckCircle } from "react-icons/fa";
+// import { FaCheckCircle } from "react-icons/fa";
 
 const CardItem = () => {
   const [products, setProducts] = useState([]);
@@ -88,8 +88,8 @@ const CardItem = () => {
         ) : (
           <div className="row gap-3 justify-content-center">
           {products.map((product) => (
-            <div className="card card-sampah col-12 col-xl-4 p-3 position-relatif" key={product.id}>
-              <FaCheckCircle size={30} color="green"  className="position-absolute"/>
+            <div className="card card-sampah col-12 col-xxl-4 p-3 position-relatif" key={product.id}>
+              {/* <FaCheckCircle size={30} color="green"  className="position-absolute"/> */}
               <div className="card-body d-flex gap-3">
                 <div className="gambar-sampah-container text-center">
                 <img
@@ -103,17 +103,16 @@ const CardItem = () => {
                 <div>
                   <h5 className="card-title" style={{fontWeight: '700', color: '#116530'}}>{product.name}</h5>
                   <p style={{textAlign: 'justify', fontWeight: '500', color: '#116530'}}>{product.description}</p>
-                  <div className="text-end">
-                  
+                </div>
+              </div>
+                <div className="text-end">
                   <ButtonElement
-                    className="btn btn-success text-end"
+                    className="btn btn-success"
                     handleClick={() => handleClickJual(product.id)}
                   >
                     Jual
                   </ButtonElement>
                   </div>
-                </div>
-              </div>
             </div>
           ))}
            </div>

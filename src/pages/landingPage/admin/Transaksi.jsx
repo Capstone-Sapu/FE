@@ -19,7 +19,7 @@ const Transaksi = () => {
   const [loading, setLoading] = useState (false)
   useEffect(() => {
 fetchData();
-  }, []);
+  }, [searchValue]);
 
   const fetchData = async () => {
     try {

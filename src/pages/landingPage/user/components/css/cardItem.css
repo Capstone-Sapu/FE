@@ -22,8 +22,8 @@ div.card-sampah {
     text-align: center;
   }
 }
-@media (min-width: 1190px) {
+@media (min-width: 1400px) {
     div.card.card-sampah {
-        width: 31%;
+        width: 32%;
     }
 }
