@@ -17,6 +17,7 @@ const Transaksi = () => {
   const [showModalDelete, setShowModalDelete] = useState(false);
   const [transaksi, setTransaksi] = useState ([]);
   const [loading, setLoading] = useState (false)
+  
   useEffect(() => {
 fetchData();
   }, [searchValue]);
@@ -28,6 +29,7 @@ fetchData();
       });
       const transaksiData = response.data;
       setTransaksi(transaksiData);
+      setLoading (false)
     } catch (error) {
       console.error("Error fetching user data:", error);
     }
