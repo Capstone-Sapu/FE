@@ -13,7 +13,7 @@ const Transaksi = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedId, setSelectedId] = useState ();
   const [selectedIdDelete, setSelectedIdDelete] = useState ();
-  const [searchValue, setSearchValue] = useState ();
+  const [searchValue, setSearchValue] = useState ("");
   const [showModalDelete, setShowModalDelete] = useState(false);
   const [transaksi, setTransaksi] = useState ([]);
   const [loading, setLoading] = useState (false)
