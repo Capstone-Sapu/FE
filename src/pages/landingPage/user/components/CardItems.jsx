@@ -7,6 +7,7 @@ import "./css/cardItem.css";
 import { useNavigate } from "react-router-dom";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
+import { FaCheckCircle } from "react-icons/fa";
 
 const CardItem = () => {
   const [products, setProducts] = useState([]);
@@ -87,7 +88,8 @@ const CardItem = () => {
         ) : (
           <div className="row gap-3 justify-content-center">
           {products.map((product) => (
-            <div className="card card-sampah col-12 col-xl-4 p-3" key={product.id}>
+            <div className="card card-sampah col-12 col-xl-4 p-3 position-relatif" key={product.id}>
+              <FaCheckCircle size={30} color="green"  className="position-absolute"/>
               <div className="card-body d-flex gap-3">
                 <div className="gambar-sampah-container text-center">
                 <img
@@ -96,12 +98,13 @@ const CardItem = () => {
                     alt={`Gambar Sampah ${product.image}`}
                     onError={() => handleImageError(product.id)}
                   />
-                <p className="mt-3 text-start" style={{ fontWeight: '500', color: '#116530', fontSize: '1.3rem'}}>Rp. {product.price} / Kg</p>
+                {/* <p className="mt-3 text-start" style={{ fontWeight: '500', color: '#116530', fontSize: '1.3rem'}}>Rp. {product.price} / Kg</p> */}
                 </div>
                 <div>
                   <h5 className="card-title" style={{fontWeight: '700', color: '#116530'}}>{product.name}</h5>
                   <p style={{textAlign: 'justify', fontWeight: '500', color: '#116530'}}>{product.description}</p>
                   <div className="text-end">
+                  
                   <ButtonElement
                     className="btn btn-success text-end"
                     handleClick={() => handleClickJual(product.id)}
