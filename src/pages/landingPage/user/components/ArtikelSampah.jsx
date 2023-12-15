@@ -6,7 +6,7 @@ const ArtikelSampah = () => {
       <hr className="line-header" />
       <article className="mx-4 text-center">
         Temukan Penghasilan tambahan dari barang daur ulang melalui platform kami yang inovatif. Dengan
-        fokus pada kertas HVS, kardus, kaleng, kami mengajak Anda
+        fokus pada kertas HVS, kardus, kaleng, dan sampah bekas lainnya kami mengajak Anda
         untuk berpartisipasi dalam perjalanan menuju kehidupan berkelanjutan.
         Bantu kami dengan mengirimkan barang sisa Anda yang akan diolah menjadi produk-produk daur ulang.
         tetapi juga unik dan bermanfaat. Mari
