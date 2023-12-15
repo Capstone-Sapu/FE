@@ -23,7 +23,9 @@ fetchData();
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(`${import.meta.env.VITE_API_URL}/transaksitable`);
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/transaksitable`, {
+        params: {search: searchValue}
+      });
       const transaksiData = response.data;
       setTransaksi(transaksiData);
     } catch (error) {
