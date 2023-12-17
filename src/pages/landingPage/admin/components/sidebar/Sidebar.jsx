@@ -3,6 +3,7 @@ import { RiDeleteBin7Fill } from "react-icons/ri";
 import { FaUser } from "react-icons/fa6";
 import { TbLogout } from "react-icons/tb";
 import { GiShoppingBag } from "react-icons/gi";
+import { FaHistory } from 'react-icons/fa';
 import "../css/sidebar.css";
 import { NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -85,6 +86,17 @@ const Sidebar = () => {
                 color="white"
               />
               {isSidebarOpen ? "Transaksi" : ""}
+            </div>
+          </li>
+        </NavLink>
+        <NavLink to="/riwayat">
+          <li className="nav-item">
+            <div className={`navigasi ${isSidebarOpen ? "open" : ""}`}>
+              <FaHistory
+                className={`icon-sidebar ${isSidebarOpen ? "open" : ""}`}
+                color="white"
+              />
+              {isSidebarOpen ? "Riwayat" : ""}
             </div>
           </li>
         </NavLink>

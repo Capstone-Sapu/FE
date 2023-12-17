@@ -84,7 +84,7 @@ const Beranda = () => {
           <img src="/ilustrasi.svg" alt="gambar save earth" height={300}/>
         </div>
       </div>
-        <h2 className="section-fitur text-center">Fitur</h2>
+        <h2 className="section-fitur text-center">Manfaat SAPU</h2>
         <hr className="line-header" />
         <div className="card-fitur d-flex gap-4 justify-content-center">
           <div className="card">
