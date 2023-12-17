@@ -10,6 +10,7 @@ import FormJual from "./pages/landingPage/user/components/FormJual"
 import User from "./pages/landingPage/admin/User"
 import Sampah from "./pages/landingPage/admin/Sampah"
 import Transaksi from "./pages/landingPage/admin/Transaksi"
+import Riwayat from "./pages/landingPage/admin/Riwayat"
 
 
 
@@ -29,6 +30,7 @@ function App() {
         <Route path="/Customer"element={<User/>}/>
         <Route path="/sampah"element={<Sampah/>}/>
         <Route path="/transaksi"element={<Transaksi/>}/>
+        <Route path="/riwayat"element={<Riwayat/>}/>
         <Route path="*"element={<NotFound/>}/>
         
       </Routes>
