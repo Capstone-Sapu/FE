@@ -29,6 +29,7 @@ const User = () => {
     { field: "name", header: "Nama Customer" },
     { field: "username", header: "Username" },
     { field: "email", header: "Email" },
+    { field: "role", header: "Role" },
     { field: "balance", header: "Pendapatan" },
   ];
   const handleDelete = (id) => {
@@ -76,6 +77,7 @@ const User = () => {
           name: user.name,
           email: user.email,
           username: user.username,
+          role: user.role,
         }));
       } catch (error) {
         console.error("Error fetching User data:", error);
@@ -216,6 +218,16 @@ useEffect(() => {
                 name="email"
                 id="email"
                 value={user.email === undefined ? "" : user.email}
+                onChange={handleChange}
+                className="mb-2"
+                required
+              />
+              <InputElement
+                label="Role"
+                type="role"
+                name="role"
+                id="role"
+                value={user.role === undefined ? "" : user.role}
                 onChange={handleChange}
                 className="mb-2"
                 required
