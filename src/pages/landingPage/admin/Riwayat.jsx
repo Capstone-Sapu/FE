@@ -22,7 +22,7 @@ fetchData();
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(`${import.meta.env.VITE_API_URL}/riwayat`, {
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/riwayattable`, {
         params: {search: searchValue}
       });
       const riwayatData = response.data;
