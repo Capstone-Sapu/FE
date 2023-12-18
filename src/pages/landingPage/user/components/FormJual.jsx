@@ -231,7 +231,7 @@ const FormJual = () => {
               show={modalShow}
               onHide={hideModal}
               size={"lg"}
-              title={"Apakah Sudah Benar?"}
+              title={"Apakah Sudah Benar? Silahkan Screenshot untuk Bukti Jual Sampah ke Petugas."}
               closeButton={true}
             >
               <div className="mt-2" style={{ fontSize: "1.2rem" }}>
