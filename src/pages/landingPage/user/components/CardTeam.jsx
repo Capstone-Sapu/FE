@@ -7,24 +7,24 @@ const CardTeam = () => {
       nama: 'Delphia Aryana',
       role: "Back End Developer",
       sumber: 'adel',
-      github: '#',
-      instagram: '#',
-      linkedIn: '#'
+      github: 'https://github.com/DelphiaAryana',
+      instagram: 'https://www.instagram.com/delphiaaryana_',
+      linkedIn: 'https://www.linkedin.com/in/delphiaaryana/'
     }, 
     {
       nama: 'iif Alifah',
       role: "Back End Developer",
       sumber: 'iif',
-      github: '#',
-      instagram: '#',
-      linkedIn: '#'
+      github: 'https://github.com/IifAlifah',
+      instagram: 'https://www.instagram.com/iifalifah_/',
+      linkedIn: 'https://www.linkedin.com/in/iif-alifah-38978629a/'
     },
     {
       nama: 'M. Yudya Ananda Hasibuan',
       role: "Front End Developer",
       sumber: 'yudha',
-      github: '#',
-      instagram: '#',
+      github: 'https://github.com/YudaHasibuan23',
+      instagram: 'https://www.instagram.com/yuda.hasibuan23/',
       linkedIn: '#'
     },
     {

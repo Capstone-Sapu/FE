@@ -132,34 +132,7 @@ fetchData();
               <span
                 className="text-success"
                 style={{ cursor: "pointer" }}
-                onClick={() => {
-                  handleModal(rowData.id); // Memanggil fungsi handleModal
-                
-                  axios.get(`/download-pdf/${rowData.id}`, { responseType: 'blob' })  // Pastikan menggunakan responseType: 'blob'
-                    .then((response) => {
-                      // Handle respons sukses
-                      const url = window.URL.createObjectURL(new Blob([response.data]));
-                      
-                      // Membuat elemen <a> untuk mengunduh file
-                      const link = document.createElement('a');
-                      link.href = url;
-                      link.setAttribute('download', `transaksi_${rowData.id}.pdf`);
-                      
-                      // Menambahkan elemen <a> ke dalam DOM
-                      document.body.appendChild(link);
-                      
-                      // Memulai proses unduh
-                      link.click();
-                      
-                      // Menghapus elemen <a> setelah proses unduh selesai
-                      document.body.removeChild(link);
-                    })
-                    .catch((error) => {
-                      // Handle kesalahan
-                      console.error('Gagal mengunduh PDF', error);
-                    });
-
-                }}
+                onClick={()=> handleModal (rowData.id)}
               >
                 <FaCheckCircle size={18} />
               </span>
